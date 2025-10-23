@@ -1,0 +1,172 @@
+/* ============================================
+   FILTER CARDS - Nova UI (Sem Badges)
+   ============================================ */
+
+/* Botões lado a lado */
+.card-action-buttons {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.card-action-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Botão Editar */
+.card-action-btn.edit {
+  background-color: var(--sigma-gray-200);
+  color: var(--sigma-gray-800);
+  border: 1px solid var(--sigma-gray-400);
+}
+
+.card-action-btn.edit:hover {
+  background-color: var(--sigma-gray-300);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-action-btn.edit:active {
+  transform: translateY(0);
+}
+
+/* Botão Confirmar */
+.card-action-btn.confirm {
+  background-color: var(--sigma-success);
+  color: var(--sigma-branco);
+  border: 1px solid var(--sigma-success);
+}
+
+.card-action-btn.confirm:hover {
+  background-color: #0a1800;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-action-btn.confirm:active {
+  transform: translateY(0);
+}
+
+/* Valor confirmado */
+.card-confirmed-value {
+  padding: var(--spacing-md);
+  background-color: var(--sigma-accent);
+  border-left: 4px solid var(--sigma-success);
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  color: var(--sigma-primary);
+}
+
+.card-confirmed-value strong {
+  font-size: var(--font-size-base);
+}
+
+/* Estados dos cards */
+.filter-card {
+  transition: all 0.3s ease;
+}
+
+.filter-card.card-locked {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.filter-card.card-active {
+  border-color: var(--sigma-info);
+  background-color: var(--sigma-branco);
+}
+
+.filter-card.card-ready {
+  border-color: var(--sigma-success);
+  background-color: var(--sigma-branco);
+}
+
+/* Loading e estados de erro */
+.filter-loading,
+.filter-error {
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.filter-loading {
+  background-color: var(--sigma-accent);
+  color: var(--sigma-info);
+}
+
+.filter-error {
+  background-color: #ffe5e5;
+  color: var(--sigma-error);
+  border-left: 4px solid var(--sigma-error);
+}
+
+/* Labels e selects */
+.filter-label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--sigma-gray-800);
+  font-size: var(--font-size-sm);
+}
+
+.filter-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--sigma-gray-300);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  background-color: var(--sigma-branco);
+  color: var(--sigma-gray-800);
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filter-select:hover {
+  border-color: var(--sigma-info);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--sigma-info);
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+
+/* Mensagem de bloqueio */
+.lock-message {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background-color: var(--sigma-gray-100);
+  border-radius: var(--border-radius-sm);
+  color: var(--sigma-gray-600);
+  font-size: var(--font-size-sm);
+}
+
+.lock-message-icon {
+  font-size: 1.2rem;
+}
+
+/* Nota de informação quando não há itens */
+.filter-empty-note {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
+}

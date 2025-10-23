@@ -1,0 +1,10 @@
+/* Styles for SmartHierarchicalFilters tooltips and feedbacks */
+.tooltip-custom {
+  background: var(--sigma-gray-100);
+  color: var(--sigma-gray-800);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--font-size-sm);
+  transition: opacity 0.2s ease;
+}

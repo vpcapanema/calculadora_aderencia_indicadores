@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de Aderência Metodológica - Sistema PLI SIGMA">
+    <title>Calculadora de Aderência Metodológica | PLI SIGMA</title>
+    
+    <script>
+        // Redirecionar para a página inicial
+        window.location.href = 'home.html';
+    </script>
+    
+    <!-- Google Fonts - Montserrat (usado no sistema PLI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Meta tags para SEO -->
+    <meta name="author" content="PLI SIGMA">
+    <meta name="keywords" content="PLI, SIGMA, Indicadores, Metodologia, Aderência">
+    
+    <!-- CSS da aplicação -->
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/calculadora-aderencia.css">
+    
+    <style>
+        /* Loading inicial */
+        #loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--sigma-gray-50, #f7fafc);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        #loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--sigma-gray-300, #cbd5e0);
+            border-top: 4px solid var(--sigma-primary, #0f203e);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #loading .loading-text {
+            margin-left: 1rem;
+            color: var(--sigma-primary, #0f203e);
+            font-weight: 600;
+        }
+        
+        /* Esconder loading quando React carregar */
+        #root:not(:empty) ~ #loading {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container principal da aplicação React -->
+    <div id="root"></div>
+    
+    <!-- Loading fallback -->
+    <div id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Carregando Calculadora PLI...</div>
+    </div>
+
+    <!-- Scripts React via CDN (versões estáveis) -->
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    
+    <!-- Babel para transpilação JSX -->
+    <script src="https://unpkg.com/@babel/standalone@7.22.5/babel.min.js"></script>
+    
+    <!-- Componente principal -->
+    <script type="text/babel" src="./calculadora_aderencia_metodologia.jsx"></script>
+    <script type="text/babel" src="./index.js"></script>
+    
+    <!-- Analytics ou scripts adicionais podem ir aqui -->
+</body>
+</html>

@@ -1,0 +1,11 @@
+indicador,descricao,area,unidade_medida,fonte
+"Taxa de Crescimento Populacional","Mede o crescimento anual da população em percentual","Demografia","%","IBGE"
+"Índice de Desenvolvimento Humano","Indicador composto de longevidade, educação e renda","Desenvolvimento Social","Índice (0-1)","PNUD/IBGE"
+"Cobertura Vegetal","Percentual de área coberta por vegetação nativa","Meio Ambiente","%","INPE/MapBiomas"
+"Densidade Demográfica","Número de habitantes por quilômetro quadrado","Demografia","hab/km²","IBGE"
+"Renda Per Capita","Renda média por habitante em reais","Economia","R$","IBGE/PNAD"
+"Tempo Médio de Deslocamento aos Terminais","Tempo médio de deslocamento viário aos terminais logísticos","Logística","minutos","ANTT/DER"
+"Volume de Carga Ferroviária","Volume de carga transportada por ferrovia","Transporte","toneladas/ano","ANTT"
+"Índice de Custo Logístico Regional","Custo logístico em relação ao PIB regional","Economia Logística","%","ILOS/ANTT"
+"Índice de Congestionamento Rodoviário","Medida de congestionamento nas principais rodovias","Transporte","Índice (0-10)","DER/Waze"
+"Volumes Portuários Anuais","Volume total movimentado nos portos","Portuário","TEU/ano","ANTAQ"

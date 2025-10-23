@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Resultados da Calculadora de Aderência Metodológica - Sistema PLI SIGMA">
+    <title>Resultados | Calculadora PLI SIGMA</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS da aplicação -->
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/calculadora-aderencia.css">
+</head>
+<body>
+    <!-- Container Principal Padronizado -->
+    <div class="pli-main-container">
+        <div class="pli-content-container wide">
+            
+            <!-- Header da Página -->
+            <div class="pli-card">
+                <div class="pli-page-header">
+                    <div>
+                        <h1 class="pli-page-title">📊 Resultados da Avaliação</h1>
+                        <p class="pli-page-subtitle">Sistema PLI SIGMA - Aderência Metodológica</p>
+                    </div>
+                    <div class="pli-page-nav">
+                        <a href="home.html" style="color: var(--sigma-info); text-decoration: none;">🏠 Início</a>
+                        <span style="margin: 0 var(--spacing-sm); color: var(--sigma-gray-400);">|</span>
+                        <a href="atribuicao-niveis.html" style="color: var(--sigma-info); text-decoration: none;">⬅️ Voltar</a>
+                    </div>
+                </div>
+
+                <!-- Resumo Geral -->
+                <div class="pli-section" id="resumoGeral">
+                    <h3 style="color: var(--sigma-primary); font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-lg);">📈 Resumo Geral da Avaliação</h3>
+                    <div class="pli-grid cols-3">
+                        <div style="text-align: center; padding: var(--spacing-lg); background: var(--sigma-accent); border-radius: var(--border-radius-md);">
+                            <div style="font-size: var(--font-size-2xl); font-weight: 900; color: var(--sigma-primary);" id="indiceGeralValue">--</div>
+                            <div style="font-size: var(--font-size-sm); color: var(--sigma-gray-600); margin-top: var(--spacing-xs);">Índice Geral de Aderência</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--spacing-lg); background: var(--sigma-accent); border-radius: var(--border-radius-md);">
+                            <div style="font-size: var(--font-size-lg); font-weight: 700;" id="classificacaoGeralValue">--</div>
+                            <div style="font-size: var(--font-size-sm); color: var(--sigma-gray-600); margin-top: var(--spacing-xs);">Classificação Predominante</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--spacing-lg); background: var(--sigma-accent); border-radius: var(--border-radius-md);">
+                            <div style="font-size: var(--font-size-xl); font-weight: 700; color: var(--sigma-success);" id="totalIndicadores">0</div>
+                            <div style="font-size: var(--font-size-sm); color: var(--sigma-gray-600); margin-top: var(--spacing-xs);">Indicadores Avaliados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados Detalhados -->
+        <div class="calculadora-card wide">
+            <h2 class="calculadora-subtitle">📋 Resultados Detalhados por Indicador</h2>
+            
+            <div class="calculadora-table-wrapper">
+                <table class="calculadora-table" id="tabelaResultados">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Indicador</th>
+                            <th style="width: 15%;">IA (0-5)</th>
+                            <th style="width: 20%;">Classificação</th>
+                            <th style="width: 25%;">Critérios Avaliados</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Resultados serão inseridos aqui via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Análise por Critério -->
+        <div class="calculadora-card wide">
+            <h2 class="calculadora-subtitle">🎯 Análise por Critério Metodológico</h2>
+            
+            <div id="analiseCriterios" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
+                <!-- Cards de critérios serão inseridos aqui -->
+            </div>
+        </div>
+
+        <!-- Interpretação dos Resultados -->
+        <div class="calculadora-card">
+            <h2 class="calculadora-subtitle">💡 Interpretação dos Resultados</h2>
+            
+            <div style="display: grid; gap: var(--spacing-lg);">
+                <div style="background: var(--sigma-verde-claro); padding: var(--spacing-lg); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-success);">
+                    <h4 style="color: var(--sigma-success); margin: 0 0 var(--spacing-sm) 0;">🟢 Direto (IA ≥ 4,0)</h4>
+                    <p style="margin: 0; color: var(--sigma-gray-700);">Indicadores com alta aderência metodológica. Podem ser utilizados diretamente para representar o fenômeno de interesse.</p>
+                </div>
+                
+                <div style="background: var(--sigma-accent); padding: var(--spacing-lg); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-info);">
+                    <h4 style="color: var(--sigma-info); margin: 0 0 var(--spacing-sm) 0;">🔵 Proxy Forte (3,0 ≤ IA < 4,0)</h4>
+                    <p style="margin: 0; color: var(--sigma-gray-700);">Indicadores com boa aderência. Podem ser utilizados como proxies confiáveis com pequenos ajustes metodológicos.</p>
+                </div>
+                
+                <div style="background: #fff4e0; padding: var(--spacing-lg); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-warning);">
+                    <h4 style="color: var(--sigma-warning); margin: 0 0 var(--spacing-sm) 0;">🟡 Proxy Moderado (2,0 ≤ IA < 3,0)</h4>
+                    <p style="margin: 0; color: var(--sigma-gray-700);">Indicadores com aderência moderada. Requerem cuidados especiais na interpretação e uso limitado.</p>
+                </div>
+                
+                <div style="background: #fde8e6; padding: var(--spacing-lg); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-error);">
+                    <h4 style="color: var(--sigma-error); margin: 0 0 var(--spacing-sm) 0;">🔴 Incerto/Espúrio (IA < 2,0)</h4>
+                    <p style="margin: 0; color: var(--sigma-gray-700);">Indicadores com baixa aderência. Não recomendados para uso direto, necessitam revisão metodológica profunda.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ações Finais -->
+        <div class="calculadora-card">
+            <h2 class="calculadora-subtitle">⚡ Próximos Passos</h2>
+            
+            <div class="calculadora-navigation">
+                <div class="calculadora-nav-left">
+                    <a href="home.html" class="calculadora-btn secondary">🏠 Nova Avaliação</a>
+                    <a href="atribuicao-niveis.html" class="calculadora-btn secondary">⬅️ Revisar Critérios</a>
+                </div>
+                <div class="calculadora-nav-right">
+                    <button onclick="exportarResultados()" class="calculadora-btn primary">📄 Exportar Relatório</button>
+                    <button onclick="window.print()" class="calculadora-btn success">🖨️ Imprimir</button>
+                </div>
+            </div>
+        </div>
+        
+        </div> <!-- Fecha pli-content-container -->
+    </div> <!-- Fecha pli-main-container -->
+
+    <script>
+        // Dados dos critérios metodológicos
+        const criterios = [
+            { nome: 'Proximidade Conceitual', peso: 30, explicacao: 'Alinhamento entre o conceito e o que é medido', cor: 'var(--sigma-primary)' },
+            { nome: 'Mecanismo Causal', peso: 20, explicacao: 'Força da relação causal entre fenômeno e métrica', cor: 'var(--sigma-secondary)' },
+            { nome: 'Validade Empírica', peso: 15, explicacao: 'Evidências empíricas e consistência estatística', cor: 'var(--sigma-info)' },
+            { nome: 'Especificidade', peso: 10, explicacao: 'Isolamento do fenômeno alvo de variáveis externas', cor: 'var(--sigma-success)' },
+            { nome: 'Sensibilidade', peso: 10, explicacao: 'Reatividade a variações reais no tempo/espaço', cor: 'var(--sigma-warning)' },
+            { nome: 'Mensurabilidade', peso: 10, explicacao: 'Disponibilidade, precisão e replicabilidade dos dados', cor: 'var(--sigma-verde-medio)' },
+            { nome: 'Custo-benefício', peso: 5, explicacao: 'Relação entre esforço de coleta e valor analítico', cor: 'var(--sigma-error)' }
+        ];
+
+        // Função para classificar baseado no IA
+        function classificar(ia) {
+            if (ia >= 4) return 'Direto';
+            if (ia >= 3) return 'Proxy Forte';
+            if (ia >= 2) return 'Proxy Moderado';
+            return 'Incerto/Espúrio';
+        }
+
+        // Função para obter classe CSS do badge
+        function getBadgeClass(classificacao) {
+            switch(classificacao) {
+                case 'Direto': return 'direto';
+                case 'Proxy Forte': return 'proxy-forte';
+                case 'Proxy Moderado': return 'proxy-moderado';
+                default: return 'incerto';
+            }
+        }
+
+        // Função para calcular IA de um indicador
+        function calcularIA(scores) {
+            const somaPesos = criterios.reduce((acc, c) => acc + c.peso, 0);
+            const total = criterios.reduce((acc, c, i) => acc + (scores[i] || 0) * c.peso, 0);
+            return total / somaPesos;
+        }
+
+        // Função para carregar e exibir resultados
+        function carregarResultados() {
+            try {
+                const indicadores = JSON.parse(localStorage.getItem('pli_indicadores') || '[]');
+                const scores = JSON.parse(localStorage.getItem('pli_scores') || '{}');
+
+                if (indicadores.length === 0) {
+                    document.querySelector('#tabelaResultados tbody').innerHTML = `
+                        <tr><td colspan="4" style="text-align: center; color: var(--sigma-warning); padding: var(--spacing-xl);">
+                            ⚠️ Nenhum indicador encontrado. <a href="home.html" style="color: var(--sigma-primary);">Voltar ao início</a>
+                        </td></tr>
+                    `;
+                    return;
+                }
+
+                let somaIndicesGerais = 0;
+                let totalIndicadores = indicadores.length;
+                const resultados = [];
+                const analisesCriterios = Array(criterios.length).fill(0).map(() => ({ soma: 0, count: 0 }));
+
+                // Processar cada indicador
+                indicadores.forEach((indicador, i) => {
+                    const scoreIndicador = scores[i] || {};
+                    const ia = calcularIA(scoreIndicador);
+                    const classificacao = classificar(ia);
+                    const criteriosPreenchidos = Object.keys(scoreIndicador).length;
+
+                    somaIndicesGerais += ia;
+                    resultados.push({
+                        indicador: indicador.indicador || `Indicador ${i + 1}`,
+                        ia: ia,
+                        classificacao: classificacao,
+                        criteriosPreenchidos: criteriosPreenchidos
+                    });
+
+                    // Analisar critérios
+                    criterios.forEach((_, j) => {
+                        if (scoreIndicador[j] !== undefined) {
+                            analisesCriterios[j].soma += scoreIndicador[j];
+                            analisesCriterios[j].count++;
+                        }
+                    });
+                });
+
+                const indiceGeral = somaIndicesGerais / totalIndicadores;
+
+                // Atualizar resumo geral
+                document.getElementById('indiceGeralValue').textContent = indiceGeral.toFixed(2);
+                document.getElementById('classificacaoGeralValue').textContent = classificar(indiceGeral);
+                document.getElementById('totalIndicadores').textContent = totalIndicadores;
+
+                // Popular tabela de resultados
+                const tbody = document.querySelector('#tabelaResultados tbody');
+                tbody.innerHTML = resultados.map(resultado => `
+                    <tr>
+                        <td><strong>${resultado.indicador}</strong></td>
+                        <td style="text-align: center; font-weight: 700; color: var(--sigma-primary);">${resultado.ia.toFixed(2)}</td>
+                        <td><span class="calculadora-badge ${getBadgeClass(resultado.classificacao)}">${resultado.classificacao}</span></td>
+                        <td style="text-align: center;">${resultado.criteriosPreenchidos}/7</td>
+                    </tr>
+                `).join('');
+
+                // Análise por critério
+                const analiseCriteriosContainer = document.getElementById('analiseCriterios');
+                analiseCriteriosContainer.innerHTML = criterios.map((criterio, i) => {
+                    const analise = analisesCriterios[i];
+                    const media = analise.count > 0 ? (analise.soma / analise.count).toFixed(2) : 'N/A';
+                    
+                    return `
+                        <div style="background: var(--sigma-branco); border: 1px solid var(--sigma-gray-200); border-radius: var(--border-radius-md); padding: var(--spacing-lg); border-left: 4px solid ${criterio.cor};">
+                            <h4 style="margin: 0 0 var(--spacing-sm) 0; color: ${criterio.cor};">${criterio.nome}</h4>
+                            <p style="margin: 0 0 var(--spacing-md) 0; font-size: var(--font-size-sm); color: var(--sigma-gray-600);">${criterio.explicacao}</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Peso: ${criterio.peso}%</span>
+                                <span style="font-size: var(--font-size-lg); font-weight: 700; color: ${criterio.cor};">Média: ${media}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Erro ao carregar resultados:', error);
+                document.querySelector('#tabelaResultados tbody').innerHTML = `
+                    <tr><td colspan="4" style="text-align: center; color: var(--sigma-error); padding: var(--spacing-xl);">
+                        ❌ Erro ao carregar dados. <a href="home.html" style="color: var(--sigma-primary);">Reiniciar processo</a>
+                    </td></tr>
+                `;
+            }
+        }
+
+        // Função para exportar resultados
+        function exportarResultados() {
+            try {
+                const indicadores = JSON.parse(localStorage.getItem('pli_indicadores') || '[]');
+                const scores = JSON.parse(localStorage.getItem('pli_scores') || '{}');
+                
+                let csvContent = "indicador,descricao,area,unidade_medida,fonte,ia_calculado,classificacao\n";
+                
+                indicadores.forEach((ind, i) => {
+                    const scoreIndicador = scores[i] || {};
+                    const ia = calcularIA(scoreIndicador);
+                    const classificacao = classificar(ia);
+                    
+                    csvContent += `"${ind.indicador || ''}","${ind.descricao || ''}","${ind.area || ''}","${ind.unidade_medida || ''}","${ind.fonte || ''}",${ia.toFixed(2)},"${classificacao}"\n`;
+                });
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `resultados-pli-${new Date().toISOString().split('T')[0]}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                alert('📄 Relatório exportado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao exportar:', error);
+                alert('❌ Erro ao exportar relatório.');
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarResultados();
+            console.log('📊 Página de Resultados carregada com sucesso!');
+        });
+    </script>
+</body>
+</html>

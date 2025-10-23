@@ -1,0 +1,16 @@
+# TEMPLATE FICHA MÍNIMA DE INDICADORES - PLI SIGMA
+# Instruções de preenchimento:
+# 1. Preencha uma linha para cada indicador
+# 2. Use aspas duplas para textos que contenham vírgulas
+# 3. Mantenha o cabeçalho (primeira linha) sem alterações
+# 4. Remova estas linhas de comentário antes do upload
+# 
+# Exemplo de preenchimento:
+# "Taxa de Crescimento Populacional","Mede o crescimento anual da população em percentual","Demografia","%","IBGE"
+#
+indicador,descricao,area,unidade_medida,fonte
+"[Nome do Indicador 1]","[Descrição detalhada do que o indicador mede]","[Área de aplicação: Demografia, Transporte, Economia, etc.]","[Unidade: %, nº, R$, ton/ano, etc.]","[Fonte dos dados: IBGE, ANTT, ANTAQ, etc.]"
+"","","","",""
+"","","","",""
+"","","","",""
+"","","","","" 

@@ -1,0 +1,281 @@
+/* 
+ * Unified Card Button Styling System
+ * Controla o estilo visual e comportamento dos botões de edição dos 8 cards
+ * 
+ * Classes principais:
+ * - .card-action-btn: Base comum para todos os botões
+ * - .card-action-btn.edit: Botão de edição (EditPencilIcon - FaEdit)
+ * - .card-action-buttons: Container flex dos botões
+ * 
+ * IMPORTANTE: Os ícones são componentes React (EditPencilIcon)
+ * do arquivo /src/icons/icons.tsx, NÃO emojis CSS.
+ * 
+ * LÓGICA: A seleção no dropdown/filtro é a própria confirmação.
+ * Apenas botão de edição é necessário.
+ * 
+ * Estados dos cards:
+ * - .card-locked: Card bloqueado (botões desabilitados)
+ * - .card-active: Card em edição ativa
+ * - .card-ready: Card com dados confirmados
+ * - .card-loading: Card em carregamento
+ * - .card-error: Card com erro
+ */
+
+/* ==========================================
+   BASE BUTTON STYLING - Estilo comum
+   ========================================== */
+
+.card-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin: 0 2px;
+    padding: 0;
+    
+    /* Focus ring para acessibilidade */
+    &:focus {
+        outline: 2px solid var(--sigma-primary);
+        outline-offset: 1px;
+        border-radius: 4px;
+    }
+    
+    /* Estados de interação base */
+    &:hover {
+        transform: scale(1.1);
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 6px;
+    }
+    
+    &:active {
+        transform: scale(0.95);
+        background: rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Estado desabilitado */
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none !important;
+        background: transparent !important;
+        pointer-events: none;
+    }
+}
+
+/* ==========================================
+   EDIT BUTTON - Botão de edição (único)
+   ========================================== */
+
+.card-action-btn.edit {
+    /* Ícone React EditPencilIcon já renderizado no componente */
+    /* Sem bordas ou backgrounds - apenas o ícone */
+    
+    &:hover {
+        background: rgba(59, 130, 246, 0.1);
+    }
+    
+    &:active {
+        background: rgba(59, 130, 246, 0.2);
+    }
+}
+
+/* ==========================================
+   BUTTON CONTAINER - Container dos botões
+   ========================================== */
+
+.card-action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 0;
+    margin: 0;
+    min-height: 24px; /* Área mínima reduzida para um único botão */
+}
+
+/* ==========================================
+   CARD STATES - Estados dos cards
+   ========================================== */
+
+/* Card bloqueado - todos os botões desabilitados */
+.card-locked .card-action-btn {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(100%);
+}
+
+/* Card ativo - destaque visual */
+.card-active .card-action-btn {
+    border: 1px solid var(--sigma-primary, #007bff);
+    border-radius: 4px;
+    animation: activeCardPulse 2s infinite ease-in-out;
+}
+
+/* Card pronto - apenas feedback visual sutil */
+.card-ready .card-action-btn.edit {
+    background: rgba(40, 167, 69, 0.05);
+    border-radius: 6px;
+}
+
+/* Card em carregamento */
+.card-loading .card-action-btn {
+    opacity: 0.6;
+    cursor: wait;
+    pointer-events: none;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
+        border: 2px solid transparent;
+        border-top: 2px solid currentColor;
+        border-radius: 50%;
+        animation: buttonSpin 1s linear infinite;
+    }
+}
+
+/* Card com erro */
+.card-error .card-action-btn {
+    border: 1px solid var(--sigma-danger, #dc3545);
+    border-radius: 4px;
+    background: rgba(220, 53, 69, 0.1);
+    animation: errorShake 0.5s ease-in-out;
+}
+
+/* ==========================================
+   ANIMATIONS - Animações simplificadas
+   ========================================== */
+
+@keyframes activeCardPulse {
+    0%, 100% { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+    50% { box-shadow: 0 4px 12px rgba(var(--sigma-primary-rgb, 0, 123, 255), 0.3); }
+}
+
+@keyframes buttonSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN - Design responsivo
+   ========================================== */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .card-action-btn {
+        width: 18px;
+        height: 18px;
+        margin: 0 1px;
+    }
+    
+    .card-action-buttons {
+        gap: 3px;
+        min-height: 22px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .card-action-btn {
+        width: 24px;
+        height: 24px;
+        margin: 0 2px;
+        /* Área touch maior em mobile mas ainda compacta */
+    }
+    
+    .card-action-buttons {
+        gap: 6px;
+        min-height: 28px;
+        justify-content: center; /* Centraliza em mobile */
+    }
+}
+
+/* ==========================================
+   HIGH CONTRAST MODE - Modo alto contraste
+   ========================================== */
+
+@media (prefers-contrast: high) {
+    .card-action-btn {
+        border-width: 3px;
+        font-weight: bold;
+    }
+    
+    .card-action-btn.edit {
+        background: white;
+        border: 3px solid black;
+        color: black;
+        border-radius: 4px;
+    }
+}
+
+/* ==========================================
+   REDUCED MOTION - Movimento reduzido
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .card-action-btn {
+        transition: none;
+    }
+    
+    .card-action-btn:hover {
+        transform: none;
+    }
+    
+    .card-action-btn:active {
+        transform: none;
+    }
+    
+    * {
+        animation-duration: 0.01s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01s !important;
+    }
+}
+
+/* ==========================================
+   PRINT STYLES - Estilos para impressão
+   ========================================== */
+
+@media print {
+    .card-action-btn {
+        border: 2px solid black !important;
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+}
+
+/* ==========================================
+   DARK MODE SUPPORT - Suporte modo escuro
+   ========================================== */
+
+@media (prefers-color-scheme: dark) {
+    .card-action-btn.edit {
+        color: var(--sigma-secondary-light, #adb5bd);
+        border-color: var(--sigma-secondary-light, #adb5bd);
+        background: rgba(173, 181, 189, 0.1);
+    }
+    
+    .card-loading .card-action-btn::before {
+        border-top-color: rgba(255, 255, 255, 0.8);
+    }
+}

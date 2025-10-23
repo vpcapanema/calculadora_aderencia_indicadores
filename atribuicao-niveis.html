@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Atribuição de Níveis de Aderência - Sistema PLI SIGMA">
+    <title>Atribuição de Níveis | PLI SIGMA</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <!-- CSS da aplicação -->
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/calculadora-aderencia.css">
+</head>
+<body>
+    <!-- Container Principal Padronizado -->
+    <div class="pli-main-container">
+        <div class="pli-content-container wide">
+            
+            <!-- Header da Página -->
+            <div class="pli-card">
+                <div class="pli-page-header">
+                    <div>
+                        <h1 class="pli-page-title">📊 Atribuição de Níveis de Aderência</h1>
+                        <p class="pli-page-subtitle">Avalie cada indicador nos 7 critérios metodológicos (escala 0-5)</p>
+                    </div>
+                    <div class="pli-page-nav">
+                        <a href="home.html" style="color: var(--sigma-info); text-decoration: none;">🏠 Início</a>
+                        <span style="margin: 0 var(--spacing-sm); color: var(--sigma-gray-400);">→</span>
+                        <span style="color: var(--sigma-gray-800); font-weight: 600;">Atribuição de Níveis</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações dos Critérios -->
+            <div class="pli-card">
+                <h2 style="color: var(--sigma-primary); font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-lg);">📋 Critérios de Avaliação</h2>
+                <div class="pli-grid cols-auto">
+                
+                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-primary);">
+                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-primary);">Proximidade Conceitual (30%)</h4>
+                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Alinhamento entre o conceito e o que é medido</p>
+                </div>
+                
+                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-secondary);">
+                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-secondary);">Mecanismo Causal (20%)</h4>
+                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Força da relação causal entre fenômeno e métrica</p>
+                </div>
+                
+                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-info);">
+                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-info);">Validade Empírica (15%)</h4>
+                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Evidências empíricas e consistência estatística</p>
+                </div>
+                
+                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-success);">
+                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-success);">Especificidade (10%)</h4>
+                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Isolamento do fenômeno alvo de variáveis externas</p>
+                </div>
+                
+                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-warning);">
+                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-warning);">Sensibilidade (10%)</h4>
+                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Reatividade a variações reais no tempo/espaço</p>
+                </div>
+                
+                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-verde-medio);">
+                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-verde-medio);">Mensurabilidade (10%)</h4>
+                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Disponibilidade, precisão e replicabilidade dos dados</p>
+                </div>
+                
+                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-error);">
+                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-error);">Custo-benefício (5%)</h4>
+                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Relação entre esforço de coleta e valor analítico</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avaliação dos Indicadores -->
+        <div class="calculadora-card wide">
+            <h2 class="calculadora-subtitle">📊 Avaliação dos Indicadores</h2>
+            <p style="margin-bottom: var(--spacing-lg); color: var(--sigma-gray-600);">
+                <span class="calculadora-badge direto">0 = Inexistente</span>
+                <span class="calculadora-badge proxy-forte">3 = Moderado</span>
+                <span class="calculadora-badge proxy-moderado">5 = Excelente</span>
+            </p>
+            
+            <div id="indicadoresContainer">
+                <!-- Indicadores serão carregados aqui via JavaScript -->
+            </div>
+
+            <div class="calculadora-navigation">
+                <div class="calculadora-nav-left">
+                    <a href="home.html" class="calculadora-btn secondary">⬅️ Voltar para Início</a>
+                    <button onclick="limparTudo()" class="calculadora-btn secondary">🗑️ Limpar Tudo</button>
+                </div>
+                <div class="calculadora-nav-right">
+                    <button onclick="salvarProgresso()" class="calculadora-btn secondary">💾 Salvar Progresso</button>
+                    <button onclick="calcularResultados()" class="calculadora-btn primary" id="btnCalcular" disabled>🧮 Calcular Resultados</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status do Progresso -->
+        <div class="calculadora-card" id="progressStatus" style="display: none;">
+            <h3 class="calculadora-section-title">📈 Progresso da Avaliação</h3>
+            <div id="progressBar" style="background: var(--sigma-gray-200); height: 20px; border-radius: 10px; overflow: hidden; margin: var(--spacing-md) 0;">
+                <div id="progressFill" style="background: var(--sigma-success); height: 100%; width: 0%; transition: width 0.3s ease; border-radius: inherit;"></div>
+            </div>
+            <p id="progressText" style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);"></p>
+        </div>
+        
+        </div> <!-- Fecha pli-content-container -->
+    </div> <!-- Fecha pli-main-container -->
+
+    <script>
+        // Dados dos critérios com pesos
+        const criterios = [
+            { nome: 'Proximidade conceitual', peso: 30, explicacao: 'Alinhamento entre o conceito e o que é medido.' },
+            { nome: 'Mecanismo causal', peso: 20, explicacao: 'Força da relação causal entre fenômeno e métrica.' },
+            { nome: 'Validade empírica', peso: 15, explicacao: 'Evidências empíricas e consistência estatística.' },
+            { nome: 'Especificidade', peso: 10, explicacao: 'Isolamento do fenômeno alvo de variáveis externas.' },
+            { nome: 'Sensibilidade', peso: 10, explicacao: 'Reatividade a variações reais no tempo/espaço.' },
+            { nome: 'Mensurabilidade', peso: 10, explicacao: 'Disponibilidade, precisão e replicabilidade dos dados.' },
+            { nome: 'Custo-benefício', peso: 5, explicacao: 'Relação entre esforço de coleta e valor analítico.' }
+        ];
+
+        let indicadores = [];
+        let scores = {};
+
+        // Carregar dados dos indicadores (da sessão anterior ou localStorage)
+        function carregarDados() {
+            // Tentar carregar do localStorage primeiro
+            const dadosSalvos = localStorage.getItem('pli_indicadores');
+            const scoresSalvos = localStorage.getItem('pli_scores');
+            
+            if (dadosSalvos) {
+                indicadores = JSON.parse(dadosSalvos);
+                console.log('📊 Dados carregados do localStorage:', indicadores.length, 'indicadores');
+            }
+            
+            if (scoresSalvos) {
+                scores = JSON.parse(scoresSalvos);
+                console.log('📊 Scores carregados do localStorage');
+            }
+
+            // Se não houver dados, usar dados de exemplo
+            if (indicadores.length === 0) {
+                indicadores = [
+                    {
+                        indicador: "Taxa de Crescimento Populacional",
+                        descricao: "Mede o crescimento anual da população em percentual",
+                        area: "Demografia",
+                        unidade_medida: "%",
+                        fonte: "IBGE"
+                    },
+                    {
+                        indicador: "Densidade Rodoviária",
+                        descricao: "Extensão de rodovias por área territorial",
+                        area: "Transporte",
+                        unidade_medida: "km/km²",
+                        fonte: "DNIT"
+                    }
+                ];
+                console.log('📊 Usando dados de exemplo');
+            }
+
+            renderizarIndicadores();
+            atualizarProgresso();
+        }
+
+        // Renderizar indicadores na tela
+        function renderizarIndicadores() {
+            const container = document.getElementById('indicadoresContainer');
+            container.innerHTML = '';
+
+            indicadores.forEach((ind, i) => {
+                const cardHtml = `
+                    <div class="calculadora-indicador-card" style="margin-bottom: var(--spacing-xl);">
+                        <h3 class="calculadora-indicador-title">
+                            ${ind.indicador || `Indicador ${i + 1}`}
+                            <span style="font-size: var(--font-size-sm); font-weight: normal; color: var(--sigma-gray-600);">
+                                (${ind.area} - ${ind.fonte})
+                            </span>
+                        </h3>
+                        <p style="margin-bottom: var(--spacing-md); color: var(--sigma-gray-700); font-size: var(--font-size-sm);">
+                            ${ind.descricao}
+                        </p>
+                        
+                        <table class="calculadora-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Critério (Peso)</th>
+                                    <th style="width: 45%;">Explicação</th>
+                                    <th style="width: 30%;">Nível (0–5)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${criterios.map((c, j) => `
+                                    <tr>
+                                        <td><strong>${c.nome}</strong><br><small style="color: var(--sigma-warning);">(${c.peso}%)</small></td>
+                                        <td style="color: var(--sigma-gray-600);">${c.explicacao}</td>
+                                        <td>
+                                            <div class="calculadora-radio-group">
+                                                ${[0, 1, 2, 3, 4, 5].map(v => `
+                                                    <label class="calculadora-radio-item">
+                                                        <input
+                                                            type="radio"
+                                                            name="score-${i}-${j}"
+                                                            value="${v}"
+                                                            ${scores[i]?.[j] === v ? 'checked' : ''}
+                                                            onchange="handleScoreChange(${i}, ${j}, ${v})"
+                                                        />
+                                                        <span class="calculadora-radio-label">${v}</span>
+                                                    </label>
+                                                `).join('')}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+
+            document.getElementById('progressStatus').style.display = 'block';
+        }
+
+        // Manipular mudança de score
+        function handleScoreChange(indicadorIndex, criterioIndex, valor) {
+            if (!scores[indicadorIndex]) {
+                scores[indicadorIndex] = {};
+            }
+            scores[indicadorIndex][criterioIndex] = parseInt(valor);
+            
+            // Salvar automaticamente no localStorage
+            localStorage.setItem('pli_scores', JSON.stringify(scores));
+            
+            atualizarProgresso();
+            console.log(`📊 Score atualizado: Indicador ${indicadorIndex}, Critério ${criterioIndex} = ${valor}`);
+        }
+
+        // Atualizar barra de progresso
+        function atualizarProgresso() {
+            const totalCells = indicadores.length * criterios.length;
+            let preenchidas = 0;
+
+            indicadores.forEach((ind, i) => {
+                criterios.forEach((c, j) => {
+                    if (scores[i] && scores[i][j] !== undefined) {
+                        preenchidas++;
+                    }
+                });
+            });
+
+            const porcentagem = Math.round((preenchidas / totalCells) * 100);
+            
+            document.getElementById('progressFill').style.width = porcentagem + '%';
+            document.getElementById('progressText').textContent = 
+                `${preenchidas} de ${totalCells} avaliações preenchidas (${porcentagem}%)`;
+
+            // Habilitar botão calcular se tudo estiver preenchido
+            document.getElementById('btnCalcular').disabled = porcentagem < 100;
+        }
+
+        // Limpar todas as avaliações
+        function limparTudo() {
+            if (confirm('⚠️ Tem certeza que deseja limpar todas as avaliações? Esta ação não pode ser desfeita.')) {
+                scores = {};
+                localStorage.removeItem('pli_scores');
+                renderizarIndicadores();
+                console.log('🗑️ Todas as avaliações foram limpas');
+            }
+        }
+
+        // Salvar progresso
+        function salvarProgresso() {
+            localStorage.setItem('pli_indicadores', JSON.stringify(indicadores));
+            localStorage.setItem('pli_scores', JSON.stringify(scores));
+            
+            // Feedback visual
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Salvo!';
+            btn.style.background = 'var(--sigma-success)';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 2000);
+            
+            console.log('💾 Progresso salvo no localStorage');
+        }
+
+        // Calcular resultados finais
+        function calcularResultados() {
+            // Salvar dados antes de ir para resultados
+            localStorage.setItem('pli_indicadores', JSON.stringify(indicadores));
+            localStorage.setItem('pli_scores', JSON.stringify(scores));
+            
+            console.log('🧮 Calculando resultados...');
+            
+            // Redirecionar para página de resultados
+            window.location.href = 'resultados.html';
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarDados();
+            console.log('📊 Página de Atribuição de Níveis carregada com sucesso!');
+        });
+
+        // Verificar se há dados na URL (vindo da home)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('dados')) {
+            try {
+                const dadosUrl = JSON.parse(decodeURIComponent(urlParams.get('dados')));
+                indicadores = dadosUrl;
+                localStorage.setItem('pli_indicadores', JSON.stringify(indicadores));
+                console.log('📊 Dados recebidos da página anterior:', indicadores.length, 'indicadores');
+            } catch (e) {
+                console.error('❌ Erro ao processar dados da URL:', e);
+            }
+        }
+    </script>
+</body>
+</html>

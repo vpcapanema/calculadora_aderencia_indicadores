@@ -1,0 +1,5 @@
+﻿indicador,fenomeno,formula,unidade,periodicidade,cobertura,fonte,serie_historica,observacoes,responsavel,objetivo
+Toneladas movimentadas por ano,Fluxo de carga no sistema logístico,Σ(carga_entrada + carga_saida),t/ano,Anual,Estado,ANTT / DNIT / IBGE,2018–2025,Indicador com alta estabilidade e cobertura completa,Equipe Logística,Avaliar desempenho da movimentação de cargas
+Tempo médio de turnaround de caminhões,Eficiência operacional dos terminais,Σ(tempo_total_operacao) / n_caminhoes,min,Mensal,Município,DER / ARTESP,2020–2025,Depende de dados de observação direta e tempo real,Equipe Transporte,Medir eficiência do fluxo em terminais
+Quilometragem em áreas de risco,Exposição da malha rodoviária a eventos críticos,Σ(extensao_trecho_risco),km,Anual,Estado,DER / Defesa Civil,2019–2025,Depende de atualização dos mapas de risco,Equipe Segurança Viária,Mapear vulnerabilidade da infraestrutura
+Número de curtidas em redes sociais,Engajamento digital sobre o PLI,total_curtidas / periodo,un,Mensal,Estado,Redes sociais,2022–2025,"Indicador indireto, sem relação causal comprovada",Comunicação Institucional,Monitorar engajamento público nas redes

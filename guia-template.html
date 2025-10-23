@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guia de Uso do Template CSV - Sistema PLI SIGMA">
+    <title>Guia Template CSV | PLI SIGMA</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <!-- CSS da aplicação -->
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/calculadora-aderencia.css">
+    
+    <style>
+        /* Container principal - usando sistema padronizado */
+        .guide-container {
+            min-height: 100vh;
+            background: var(--sigma-gray-50);
+            padding: var(--spacing-xl);
+            font-family: var(--font-family);
+        }
+        
+        .guide-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .guide-header {
+            background: var(--pli-gradient-main);
+            color: var(--sigma-branco);
+            text-align: center;
+            padding: var(--spacing-2xl);
+            border-radius: var(--border-radius-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .guide-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 900;
+            margin-bottom: var(--spacing-md);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .guide-subtitle {
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: var(--sigma-branco);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--sigma-primary);
+        }
+        
+        .section h2 {
+            color: var(--sigma-primary);
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .section h3 {
+            color: var(--sigma-secondary);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+        }
+        
+        .section h4 {
+            color: var(--sigma-gray-800);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+        }
+        
+        .table-guide {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-lg) 0;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .table-guide th {
+            background: var(--sigma-primary);
+            color: var(--sigma-branco);
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .table-guide td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--sigma-gray-200);
+            vertical-align: top;
+        }
+        
+        .table-guide tbody tr:nth-child(even) {
+            background: var(--sigma-gray-50);
+        }
+        
+        .table-guide tbody tr:hover {
+            background: var(--sigma-accent);
+        }
+        
+        .code-block {
+            background: var(--sigma-gray-800);
+            color: var(--sigma-verde-claro);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-size-sm);
+            overflow-x: auto;
+            margin: var(--spacing-md) 0;
+            border-left: 4px solid var(--sigma-success);
+        }
+        
+        .highlight-box {
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-md) 0;
+        }
+        
+        .highlight-box.success {
+            background: var(--sigma-verde-claro);
+            border-left: 4px solid var(--sigma-success);
+        }
+        
+        .highlight-box.warning {
+            background: #fff4e0;
+            border-left: 4px solid var(--sigma-warning);
+        }
+        
+        .highlight-box.error {
+            background: #fde8e6;
+            border-left: 4px solid var(--sigma-error);
+        }
+        
+        .highlight-box.info {
+            background: var(--sigma-accent);
+            border-left: 4px solid var(--sigma-info);
+        }
+        
+        .icon-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            transition: background 0.2s ease;
+        }
+        
+        .icon-list li:hover {
+            background: var(--sigma-gray-50);
+        }
+        
+        .icon-list .icon {
+            font-size: var(--font-size-lg);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: var(--spacing-md);
+            margin: var(--spacing-xl) 0;
+            flex-wrap: wrap;
+        }
+        
+        .back-to-app {
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+            padding: var(--spacing-xl);
+            background: var(--sigma-gray-50);
+            border-radius: var(--border-radius-lg);
+        }
+        
+        .calculadora-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: var(--font-size-base);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 160px;
+            justify-content: center;
+        }
+        
+        .calculadora-btn.primary {
+            background: var(--pli-gradient-main);
+            color: var(--sigma-branco);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .calculadora-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .calculadora-btn.secondary {
+            background: var(--sigma-gray-100);
+            color: var(--sigma-gray-700);
+            border: 1px solid var(--sigma-gray-300);
+        }
+        
+        .calculadora-btn.secondary:hover {
+            background: var(--sigma-gray-200);
+            transform: translateY(-1px);
+        }
+        
+        .step-number {
+            background: var(--sigma-primary);
+            color: var(--sigma-branco);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: var(--font-size-sm);
+            margin-right: var(--spacing-sm);
+        }
+        
+        @media (max-width: 768px) {
+            .guide-container {
+                padding: var(--spacing-md);
+            }
+            
+            .guide-header {
+                padding: var(--spacing-lg);
+            }
+            
+            .guide-title {
+                font-size: var(--font-size-xl);
+            }
+            
+            .section {
+                padding: var(--spacing-lg);
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .table-guide {
+                font-size: var(--font-size-xs);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <div class="guide-content">
+            
+            <!-- Header -->
+            <div class="guide-header">
+                <h1 class="guide-title">📋 Guia de Uso do Template CSV</h1>
+                <p class="guide-subtitle">Ficha de Indicadores - Sistema PLI SIGMA</p>
+            </div>
+
+        <!-- Download Section -->
+        <div class="section">
+            <h2>📥 Como baixar e usar o template</h2>
+            
+            <div class="highlight-box info">
+                <h4><span class="step-number">1</span>Download do Template</h4>
+                <p>Na página inicial da Calculadora PLI, clique no botão <strong>"📋 Baixar Template CSV"</strong>. 
+                O arquivo <code>template-ficha-indicadores-PLI.csv</code> será baixado automaticamente.</p>
+            </div>
+        </div>
+
+        <!-- Structure Section -->
+        <div class="section">
+            <h2>🏗️ Estrutura do Template</h2>
+            <p>O template possui <strong>5 colunas obrigatórias</strong>:</p>
+            
+            <table class="table-guide">
+                <thead>
+                    <tr>
+                        <th>Coluna</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>indicador</strong></td>
+                        <td>Nome do indicador</td>
+                        <td>"Taxa de Crescimento Populacional"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>descricao</strong></td>
+                        <td>Descrição detalhada</td>
+                        <td>"Mede o crescimento anual da população em percentual"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>area</strong></td>
+                        <td>Área de aplicação</td>
+                        <td>"Demografia"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>unidade_medida</strong></td>
+                        <td>Unidade de medida</td>
+                        <td>"%"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>fonte</strong></td>
+                        <td>Fonte dos dados</td>
+                        <td>"IBGE"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Instructions Section -->
+        <div class="section">
+            <h2>📝 Instruções de Preenchimento</h2>
+            
+            <div class="highlight-box success">
+                <h4>✅ Boas Práticas:</h4>
+                <ul class="icon-list">
+                    <li><span class="icon">📌</span>Use <strong>aspas duplas</strong> para textos que contenham vírgulas</li>
+                    <li><span class="icon">🔒</span>Mantenha o <strong>cabeçalho</strong> (primeira linha) sem alterações</li>
+                    <li><span class="icon">📊</span>Preencha <strong>uma linha por indicador</strong></li>
+                    <li><span class="icon">🧹</span><strong>Remova as linhas de comentário</strong> (que começam com #) antes do upload</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box error">
+                <h4>❌ Evite:</h4>
+                <ul class="icon-list">
+                    <li><span class="icon">🚫</span>Alterar os nomes das colunas</li>
+                    <li><span class="icon">⚠️</span>Deixar a coluna "indicador" vazia</li>
+                    <li><span class="icon">🔤</span>Usar caracteres especiais problemáticos</li>
+                    <li><span class="icon">📄</span>Salvar em formato diferente de CSV</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example Section -->
+        <div class="section">
+            <h2>💡 Exemplo de Preenchimento Correto</h2>
+            
+            <div class="code-block">indicador,descricao,area,unidade_medida,fonte
+"Taxa de Crescimento Populacional","Mede o crescimento anual da população em percentual","Demografia","%","IBGE"
+"Densidade Rodoviária","Extensão de rodovias por área territorial","Transporte","km/km²","DNIT"
+"PIB Per Capita","Produto Interno Bruto por habitante","Economia","R$","IBGE/Contas Regionais"
+"Índice de Cobertura Vegetal","Percentual de área coberta por vegetação nativa","Meio Ambiente","%","INPE/MapBiomas"</div>
+        </div>
+
+        <!-- Areas Section -->
+        <div class="section">
+            <h2>🎯 Áreas Sugeridas</h2>
+            
+            <ul class="icon-list">
+                <li><span class="icon">👥</span><strong>Demografia</strong>: População, crescimento, densidade</li>
+                <li><span class="icon">🚛</span><strong>Transporte</strong>: Modal rodoviário, ferroviário, aquaviário</li>
+                <li><span class="icon">📦</span><strong>Logística</strong>: Terminais, armazenagem, distribuição</li>
+                <li><span class="icon">💰</span><strong>Economia</strong>: PIB, renda, custos, investimentos</li>
+                <li><span class="icon">🌱</span><strong>Meio Ambiente</strong>: Cobertura vegetal, emissões, sustentabilidade</li>
+                <li><span class="icon">🏗️</span><strong>Infraestrutura</strong>: Rodovias, portos, aeroportos, ferrovias</li>
+            </ul>
+        </div>
+
+        <!-- Sources Section -->
+        <div class="section">
+            <h2>🏛️ Fontes de Dados Comuns</h2>
+            
+            <ul class="icon-list">
+                <li><span class="icon">📊</span><strong>IBGE</strong>: Instituto Brasileiro de Geografia e Estatística</li>
+                <li><span class="icon">🚛</span><strong>ANTT</strong>: Agência Nacional de Transportes Terrestres</li>
+                <li><span class="icon">🚢</span><strong>ANTAQ</strong>: Agência Nacional de Transportes Aquaviários</li>
+                <li><span class="icon">🛣️</span><strong>DNIT</strong>: Departamento Nacional de Infraestrutura de Transportes</li>
+                <li><span class="icon">🛰️</span><strong>INPE</strong>: Instituto Nacional de Pesquisas Espaciais</li>
+                <li><span class="icon">🔬</span><strong>IPEA</strong>: Instituto de Pesquisa Econômica Aplicada</li>
+            </ul>
+        </div>
+
+        <!-- Upload Process -->
+        <div class="section">
+            <h2>📤 Upload do Arquivo</h2>
+            
+            <div class="highlight-box info">
+                <ol style="margin: 0; padding-left: 1.5rem;">
+                    <li>Após preencher o template, <strong>salve o arquivo</strong> em formato CSV</li>
+                    <li>Na página da Calculadora PLI, <strong>arraste o arquivo</strong> para a área de upload ou <strong>clique para selecionar</strong></li>
+                    <li>O sistema validará automaticamente e carregará os dados</li>
+                    <li>Você será direcionado para a próxima etapa (Avaliação por Critérios)</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Troubleshooting Section -->
+        <div class="section">
+            <h2>🔧 Resolução de Problemas</h2>
+            
+            <div class="highlight-box warning">
+                <h4>Erro: "Arquivo deve conter pelo menos um cabeçalho"</h4>
+                <p>Verifique se a primeira linha contém: <code>indicador,descricao,area,unidade_medida,fonte</code></p>
+            </div>
+            
+            <div class="highlight-box warning">
+                <h4>Erro: "Arquivo não reconhecido"</h4>
+                <p>• Certifique-se de salvar como CSV (não Excel .xlsx)<br>
+                • Use separador por vírgula, não ponto e vírgula</p>
+            </div>
+            
+            <div class="highlight-box warning">
+                <h4>Dados não aparecem na tabela</h4>
+                <p>• Verifique se há pelo menos o nome do indicador preenchido<br>
+                • Remova linhas de comentário (que começam com #)</p>
+            </div>
+        </div>
+
+        <!-- Back to App -->
+        <div class="back-to-app">
+            <h3 style="color: var(--sigma-primary); margin-bottom: var(--spacing-md);">🚀 Pronto para começar?</h3>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="home.html" class="calculadora-btn primary">
+                    📊 Ir para Calculadora
+                </a>
+                <button onclick="window.print()" class="calculadora-btn secondary">
+                    🖨️ Imprimir Guia
+                </button>
+                <button onclick="window.close()" class="calculadora-btn secondary">
+                    ❌ Fechar
+                </button>
+            </div>
+            
+            <p style="margin-top: var(--spacing-lg); color: var(--sigma-gray-600); font-size: var(--font-size-sm);">
+                <strong>Sistema PLI-SIGMA</strong> | Desenvolvido com ❤️ pela equipe técnica
+            </p>
+        </div>
+        
+        </div> <!-- Fecha guide-content -->
+    </div> <!-- Fecha guide-container -->
+
+    <script>
+        console.log('📖 Guia Template CSV carregado com sucesso!');
+        
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

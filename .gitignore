@@ -1,0 +1,87 @@
+# ==========================================
+# PLI SIGMA - Calculadora de Aderência
+# .gitignore
+# ==========================================
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.temp
+
+# Arquivos de sistema (Windows)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Arquivos de sistema (macOS)
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Arquivos de sistema (Linux)
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# Arquivos do editor
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Cache do navegador
+.cache/
+
+# Arquivos de backup
+*.bak
+*.backup
+*.orig
+
+# Arquivos de desenvolvimento Python (caso use scripts auxiliares)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Node modules (caso adicione ferramentas de build futuramente)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dados sensíveis ou temporários
+config.local.js
+.env
+.env.local
+.env.production
+
+# Arquivos de teste temporários
+test-data/
+*.test.csv
+
+# Arquivos gerados ou compilados
+dist/
+build/
+out/
+
+# ==========================================
+# ARQUIVOS ESPECÍFICOS DO PROJETO
+# ==========================================
+
+# Arquivos de teste ou desenvolvimento
+servidor-local.html
+teste-sistema.html
+
+# Arquivos de exemplo que não devem ir para produção
+examples/
+demo-data/

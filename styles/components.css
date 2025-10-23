@@ -1,0 +1,34 @@
+/* Estilos para App.tsx */
+.app-layout {
+  padding: 1rem;
+}
+
+.filter-section {
+  gap: 1rem;
+}
+
+.action-section {
+  padding: 2rem;
+}
+
+.footer-section {
+  padding: 1rem;
+}
+
+/* Estilos para WelcomeSection_PLI.tsx */
+.welcome-section-title {
+  margin: 1rem 0;
+}
+
+.welcome-section-subtitle {
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.welcome-section-content {
+  margin: 1rem 0;
+}
+
+.welcome-section-footer {
+  margin: 1rem 0;
+}

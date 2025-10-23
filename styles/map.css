@@ -1,0 +1,7 @@
+/* Styles for Map page cards */
+.map-card {
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  border: 2px solid var(--sigma-gray-200);
+  transition: all 0.3s ease;
+}

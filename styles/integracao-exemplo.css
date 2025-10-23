@@ -1,0 +1,285 @@
+/* ============================================
+   EXEMPLO DE INTEGRAÇÃO - CSS PADRÃO PLI
+   
+   Como adaptar o componente calculadora_aderencia_metodologia.jsx
+   para usar o sistema de design SIGMA-PLI
+   ============================================ */
+
+/* ==========================================
+   IMPORTAÇÕES NECESSÁRIAS
+   ========================================== */
+
+/* No topo do arquivo calculadora_aderencia_metodologia.jsx, adicionar: */
+/*
+import React, { useState } from 'react';
+import './styles/calculadora-aderencia.css';
+*/
+
+/* ==========================================
+   MAPEAMENTO DE CLASSES
+   
+   Substituir classes Tailwind pelas classes PLI:
+   ========================================== */
+
+/*
+ANTES (Tailwind):                    DEPOIS (PLI):
+─────────────────────────────────────────────────────────────────────────────
+min-h-screen bg-gray-50 p-6      →  calculadora-container
+
+max-w-4xl mx-auto bg-white        →  calculadora-card
+p-6 rounded-2xl shadow
+
+max-w-6xl mx-auto bg-white        →  calculadora-card wide
+p-6 rounded-2xl shadow space-y-4
+
+text-xl font-semibold mb-4        →  calculadora-title
+
+text-xl font-semibold mb-3        →  calculadora-subtitle
+
+font-medium mb-2                  →  calculadora-section-title
+
+px-4 py-2 bg-blue-600 text-white  →  calculadora-btn primary
+rounded-lg disabled:bg-gray-300
+
+border px-4 py-2 rounded-lg       →  calculadora-btn secondary
+
+w-full text-sm border-collapse    →  calculadora-table
+
+bg-gray-100                       →  (aplicado automaticamente no th)
+
+border p-2                        →  (aplicado automaticamente no td/th)
+
+border p-4 rounded-xl             →  calculadora-indicador-card
+
+list-disc pl-5 text-sm            →  calculadora-summary-list
+
+file input                        →  calculadora-file-input
+
+radio buttons                     →  calculadora-radio-group + calculadora-radio-item
+
+flex gap-3                        →  calculadora-navigation
+
+space-y-6                         →  calculadora-results-section
+*/
+
+/* ==========================================
+   EXEMPLO DE COMPONENTE ADAPTADO
+   ========================================== */
+
+/*
+export default function CalculadoraAderencia() {
+  const [step, setStep] = useState(1);
+  const [indicadores, setIndicadores] = useState([]);
+  const [scores, setScores] = useState({});
+  
+  // ... resto da lógica permanece igual ...
+
+  return (
+    <div className="calculadora-container">
+      {step === 1 && (
+        <div className="calculadora-card">
+          <h1 className="calculadora-title">Etapa 1 — Ficha mínima de indicadores</h1>
+          <input 
+            type="file" 
+            accept=".csv" 
+            onChange={handleUpload} 
+            className="calculadora-file-input" 
+          />
+          <button
+            disabled={indicadores.length === 0}
+            onClick={() => setStep(2)}
+            className="calculadora-btn primary"
+          >
+            Prosseguir para atribuição de níveis
+          </button>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div className="calculadora-card wide">
+          <h2 className="calculadora-subtitle">Etapa 2 — Atribuição de níveis (0–5)</h2>
+          {indicadores.map((ind, i) => (
+            <div key={i} className="calculadora-indicador-card">
+              <h3 className="calculadora-indicador-title">
+                {ind.indicador || `Indicador ${i + 1}`}
+              </h3>
+              <table className="calculadora-table">
+                <thead>
+                  <tr>
+                    <th>Critério</th>
+                    <th>Explicação</th>
+                    <th>Nível (0–5)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {criterios.map((c, j) => (
+                    <tr key={j}>
+                      <td>{c.nome}</td>
+                      <td>{c.explicacao}</td>
+                      <td>
+                        <div className="calculadora-radio-group">
+                          {[0, 1, 2, 3, 4, 5].map((v) => (
+                            <label key={v} className="calculadora-radio-item">
+                              <input
+                                type="radio"
+                                name={`score-${i}-${j}`}
+                                value={v}
+                                checked={scores[i]?.[j] === v}
+                                onChange={(e) => handleScoreChange(i, j, e.target.value)}
+                              />
+                              <span className="calculadora-radio-label">{v}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
+
+          <div className="calculadora-navigation">
+            <div className="calculadora-nav-left">
+              <button onClick={() => setStep(1)} className="calculadora-btn secondary">
+                Voltar
+              </button>
+              <button onClick={() => setScores({})} className="calculadora-btn secondary">
+                Limpar seleção
+              </button>
+            </div>
+            <div className="calculadora-nav-right">
+              <button onClick={() => setStep(3)} className="calculadora-btn primary">
+                Confirmar e calcular
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="calculadora-card wide">
+          <h2 className="calculadora-subtitle">Etapa 3 — Cálculo e resultados</h2>
+
+          <div className="calculadora-results-section">
+            <div className="calculadora-summary-card">
+              <h3 className="calculadora-summary-title">Resumo</h3>
+              <ul className="calculadora-summary-list">
+                {indicadores.map((ind, i) => (
+                  <li key={i} className="calculadora-summary-item">
+                    {ind.indicador || `Indicador ${i + 1}`} — 
+                    {Object.keys(scores[i] || {}).length}/7 critérios preenchidos
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="calculadora-summary-card">
+              <h3 className="calculadora-summary-title">Resultados</h3>
+              <table className="calculadora-table">
+                <thead>
+                  <tr>
+                    <th>Indicador</th>
+                    <th>IA (0–5)</th>
+                    <th>Classificação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {indicadores.map((ind, i) => {
+                    const ia = calcularIA(i).toFixed(2);
+                    const classe = classificar(ia);
+                    const badgeClass = classe.toLowerCase().replace(/[^a-z]/g, '-');
+                    
+                    return (
+                      <tr key={i}>
+                        <td>{ind.indicador || `Indicador ${i + 1}`}</td>
+                        <td>{ia}</td>
+                        <td>
+                          <span className={`calculadora-badge ${badgeClass}`}>
+                            {classe}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+*/
+
+/* ==========================================
+   VANTAGENS DA MIGRAÇÃO
+   ========================================== */
+
+/*
+✅ CONSISTÊNCIA VISUAL
+- Integração completa com sistema de design SIGMA-PLI
+- Cores, tipografia e espaçamentos padronizados
+- Componentes reutilizáveis
+
+✅ MANUTENIBILIDADE
+- CSS centralizado e organizado
+- Variáveis CSS para fácil customização
+- Código mais limpo e semântico
+
+✅ PERFORMANCE
+- Remoção da dependência do Tailwind CSS
+- CSS otimizado e menor
+- Carregamento mais rápido
+
+✅ ACESSIBILIDADE
+- Suporte a navegação por teclado
+- Alto contraste
+- Movimento reduzido
+- Semântica melhorada
+
+✅ RESPONSIVIDADE
+- Design mobile-first
+- Breakpoints otimizados
+- Componentes adaptativos
+
+✅ FUNCIONALIDADES EXTRAS
+- Estados de loading e erro
+- Animações suaves
+- Suporte a impressão
+- Tema escuro compatível
+*/
+
+/* ==========================================
+   PRÓXIMOS PASSOS RECOMENDADOS
+   ========================================== */
+
+/*
+1. BACKUP: Fazer backup do componente atual
+
+2. MIGRAÇÃO GRADUAL:
+   - Substituir classes uma seção por vez
+   - Testar cada etapa individualmente
+   - Verificar funcionamento em diferentes navegadores
+
+3. IMPORTAÇÃO:
+   - Adicionar import do CSS no componente
+   - Remover dependências do Tailwind (se não usado em outros lugares)
+
+4. CUSTOMIZAÇÃO:
+   - Ajustar cores específicas se necessário
+   - Adaptar espaçamentos conforme layout desejado
+   - Adicionar animações específicas se needed
+
+5. TESTES:
+   - Testar em dispositivos móveis
+   - Verificar acessibilidade
+   - Validar impressão
+   - Testar com diferentes tamanhos de dados
+
+6. DOCUMENTAÇÃO:
+   - Documentar classes customizadas
+   - Criar guia de uso para equipe
+   - Estabelecer padrões para futuras telas
+*/
