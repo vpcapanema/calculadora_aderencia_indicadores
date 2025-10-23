@@ -90,14 +90,14 @@ graph LR
 ## 🌐 Como Usar
 
 ### 🔗 Acesso Online
-Acesse a aplicação em: **[PLI SIGMA Calculator](https://vpcapanema.github.io/pli-sigma-calculadora)**
+Acesse a aplicação em: **[PLI SIGMA Calculator](https://vpcapanema.github.io/calculadora_aderencia_indicadores)**
 
 ### 💻 Execução Local
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/vpcapanema/pli-sigma-calculadora.git
-   cd pli-sigma-calculadora
+   git clone https://github.com/vpcapanema/calculadora_aderencia_indicadores.git
+   cd calculadora_aderencia_indicadores
    ```
 
 2. **Inicie um servidor local**:
@@ -212,8 +212,8 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 Para dúvidas, sugestões ou reportar problemas:
 
 - 📧 **Email**: vpcapanema@outlook.com
-- 🐛 **Issues**: [GitHub Issues](https://github.com/vpcapanema/pli-sigma-calculadora/issues)
-- 📖 **Documentação**: [Wiki do Projeto](https://github.com/vpcapanema/pli-sigma-calculadora/wiki)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/vpcapanema/calculadora_aderencia_indicadores/issues)
+- 📖 **Documentação**: [Wiki do Projeto](https://github.com/vpcapanema/calculadora_aderencia_indicadores/wiki)
 
 ---
 
@@ -221,6 +221,6 @@ Para dúvidas, sugestões ou reportar problemas:
 
 **⭐ Se este projeto foi útil, considere dar uma estrela!**
 
-[![GitHub stars](https://img.shields.io/github/stars/vpcapanema/pli-sigma-calculadora?style=social)](https://github.com/vpcapanema/pli-sigma-calculadora/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/vpcapanema/calculadora_aderencia_indicadores?style=social)](https://github.com/vpcapanema/calculadora_aderencia_indicadores/stargazers)
 
 </div>
