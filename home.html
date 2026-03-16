@@ -340,6 +340,30 @@
 
         <hr class="section-divider">
 
+        <!-- Metadados da Avaliação -->
+        <div class="pli-card">
+            <h2 class="calculadora-title">Identificação da Avaliação</h2>
+            <p style="color: var(--sigma-gray-600); margin-bottom: var(--spacing-lg); font-size: var(--font-size-sm);">
+                Estes campos serão incluídos no relatório auditável exportado.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg);">
+                <div>
+                    <label style="display: block; font-weight: 600; color: var(--sigma-primary); margin-bottom: var(--spacing-xs); font-size: var(--font-size-sm);">
+                        👤 Nome do Avaliador
+                    </label>
+                    <input type="text" id="avaliadorInput" placeholder="Nome completo do avaliador"
+                        style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--sigma-gray-300); border-radius: var(--border-radius-sm); font-size: var(--font-size-sm); font-family: var(--font-family);">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 600; color: var(--sigma-primary); margin-bottom: var(--spacing-xs); font-size: var(--font-size-sm);">
+                        🎯 Objeto de Estudo
+                    </label>
+                    <input type="text" id="objetoEstudoInput" placeholder="Ex.: Infraestrutura logística do Estado de SP"
+                        style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--sigma-gray-300); border-radius: var(--border-radius-sm); font-size: var(--font-size-sm); font-family: var(--font-family);">
+                </div>
+            </div>
+        </div>
+
         <!-- Iniciando a Análise -->
         <div class="calculadora-card">
             <h2 class="calculadora-title">Iniciando a Análise</h2>
@@ -472,13 +496,19 @@
                 inputs.forEach(input => {
                     if (input.value.trim() !== '') filledInputs++;
                 });
-                if (filledInputs >= 2) validRows++; // Pelo menos indicador e descrição
+                if (filledInputs >= 2) validRows++;
             });
 
             if (validRows === 0) {
                 alert('Por favor, preencha pelo menos o nome e descrição de um indicador.');
                 return;
             }
+
+            // Salvar metadados do avaliador
+            var avaliador = document.getElementById('avaliadorInput').value.trim();
+            var objetoEstudo = document.getElementById('objetoEstudoInput').value.trim();
+            if (avaliador) localStorage.setItem('pli_avaliador', avaliador);
+            if (objetoEstudo) localStorage.setItem('pli_objeto_estudo', objetoEstudo);
 
             if (confirm(`${validRows} indicador(es) será(ão) processado(s). Deseja prosseguir para a etapa de avaliação?`)) {
                 // Coletar dados da tabela
@@ -645,6 +675,14 @@ indicador,descricao,area,unidade_medida,fonte
 
         // Log de inicialização
         console.log('🏠 Página inicial da Calculadora PLI carregada com sucesso!');
+        
+        // Carregar metadados salvos
+        document.addEventListener('DOMContentLoaded', function() {
+            var avaliadorSalvo = localStorage.getItem('pli_avaliador');
+            var objetoSalvo = localStorage.getItem('pli_objeto_estudo');
+            if (avaliadorSalvo) document.getElementById('avaliadorInput').value = avaliadorSalvo;
+            if (objetoSalvo) document.getElementById('objetoEstudoInput').value = objetoSalvo;
+        });
     </script>
 </body>
 </html>

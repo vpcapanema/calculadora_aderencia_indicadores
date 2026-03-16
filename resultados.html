@@ -64,10 +64,11 @@
                 <table class="calculadora-table" id="tabelaResultados">
                     <thead>
                         <tr>
-                            <th style="width: 40%;">Indicador</th>
-                            <th style="width: 15%;">IA (0-5)</th>
-                            <th style="width: 20%;">Classificação</th>
-                            <th style="width: 25%;">Critérios Avaliados</th>
+                            <th style="width: 30%;">Indicador</th>
+                            <th style="width: 10%;">IA (0-5)</th>
+                            <th style="width: 18%;">Classificação</th>
+                            <th style="width: 12%;">Critérios</th>
+                            <th style="width: 30%;">Sensibilidade</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,7 +134,7 @@
     </div> <!-- Fecha pli-main-container -->
 
     <script>
-        // Dados dos critérios metodológicos
+        // Critérios metodológicos
         const criterios = [
             { nome: 'Proximidade Conceitual', peso: 30, explicacao: 'Alinhamento entre o conceito e o que é medido', cor: 'var(--sigma-primary)' },
             { nome: 'Mecanismo Causal', peso: 20, explicacao: 'Força da relação causal entre fenômeno e métrica', cor: 'var(--sigma-secondary)' },
@@ -144,15 +145,30 @@
             { nome: 'Custo-benefício', peso: 5, explicacao: 'Relação entre esforço de coleta e valor analítico', cor: 'var(--sigma-error)' }
         ];
 
-        // Função para classificar baseado no IA
-        function classificar(ia) {
+        // Limiares eliminatórios — mesmos da página de atribuição
+        const LIMIARES_ELIMINATORIOS = [
+            { criterioIndex: 0, minimoNota: 2, nome: 'Proximidade Conceitual' },
+            { criterioIndex: 1, minimoNota: 2, nome: 'Mecanismo Causal' }
+        ];
+
+        // Classificar com limiares eliminatórios
+        function classificar(ia, scoresIndicador) {
+            // Verificar limiares eliminatórios
+            if (scoresIndicador) {
+                for (var k = 0; k < LIMIARES_ELIMINATORIOS.length; k++) {
+                    var limiar = LIMIARES_ELIMINATORIOS[k];
+                    var nota = scoresIndicador[limiar.criterioIndex];
+                    if (nota !== undefined && nota < limiar.minimoNota) {
+                        return 'Incerto/Espúrio';
+                    }
+                }
+            }
             if (ia >= 4) return 'Direto';
             if (ia >= 3) return 'Proxy Forte';
             if (ia >= 2) return 'Proxy Moderado';
             return 'Incerto/Espúrio';
         }
 
-        // Função para obter classe CSS do badge
         function getBadgeClass(classificacao) {
             switch(classificacao) {
                 case 'Direto': return 'direto';
@@ -162,50 +178,109 @@
             }
         }
 
-        // Função para calcular IA de um indicador
         function calcularIA(scores) {
-            const somaPesos = criterios.reduce((acc, c) => acc + c.peso, 0);
-            const total = criterios.reduce((acc, c, i) => acc + (scores[i] || 0) * c.peso, 0);
+            var somaPesos = criterios.reduce(function(acc, c) { return acc + c.peso; }, 0);
+            var total = criterios.reduce(function(acc, c, i) { return acc + (scores[i] || 0) * c.peso; }, 0);
             return total / somaPesos;
         }
 
-        // Função para carregar e exibir resultados
+        // ═══════════════════════════════════════════════════════════════
+        // ANÁLISE DE SENSIBILIDADE — calcula IA com ±1 em cada nota
+        // para mostrar robustez do resultado
+        // ═══════════════════════════════════════════════════════════════
+        function calcularSensibilidade(scoresIndicador) {
+            var iaAtual = calcularIA(scoresIndicador);
+            var iaMin = Infinity;
+            var iaMax = -Infinity;
+
+            // Testar cada critério com ±1
+            for (var j = 0; j < criterios.length; j++) {
+                var notaOriginal = scoresIndicador[j] || 0;
+                
+                // Testar com -1
+                var scoresMenos = Object.assign({}, scoresIndicador);
+                scoresMenos[j] = Math.max(0, notaOriginal - 1);
+                var iaMenos = calcularIA(scoresMenos);
+                if (iaMenos < iaMin) iaMin = iaMenos;
+                if (iaMenos > iaMax) iaMax = iaMenos;
+
+                // Testar com +1
+                var scoresMais = Object.assign({}, scoresIndicador);
+                scoresMais[j] = Math.min(5, notaOriginal + 1);
+                var iaMais = calcularIA(scoresMais);
+                if (iaMais < iaMin) iaMin = iaMais;
+                if (iaMais > iaMax) iaMax = iaMais;
+            }
+
+            var classAtual = classificar(iaAtual, scoresIndicador);
+            var classeMin = classificar(iaMin, scoresIndicador);
+            var classeMax = classificar(iaMax, scoresIndicador);
+            var mudaCategoria = (classeMin !== classAtual || classeMax !== classAtual);
+
+            return {
+                iaMin: iaMin,
+                iaMax: iaMax,
+                mudaCategoria: mudaCategoria,
+                classeMin: classeMin,
+                classeMax: classeMax
+            };
+        }
+
+        // Verificar se indicador foi penalizado por limiar eliminatório
+        function verificarPenalizacao(scoresIndicador) {
+            var penalizacoes = [];
+            for (var k = 0; k < LIMIARES_ELIMINATORIOS.length; k++) {
+                var limiar = LIMIARES_ELIMINATORIOS[k];
+                var nota = scoresIndicador[limiar.criterioIndex];
+                if (nota !== undefined && nota < limiar.minimoNota) {
+                    penalizacoes.push(limiar.nome + ' = ' + nota + ' (mínimo: ' + limiar.minimoNota + ')');
+                }
+            }
+            return penalizacoes;
+        }
+
         function carregarResultados() {
             try {
-                const indicadores = JSON.parse(localStorage.getItem('pli_indicadores') || '[]');
-                const scores = JSON.parse(localStorage.getItem('pli_scores') || '{}');
+                var indicadores = JSON.parse(localStorage.getItem('pli_indicadores') || '[]');
+                var scores = JSON.parse(localStorage.getItem('pli_scores') || '{}');
+                var justificativas = JSON.parse(localStorage.getItem('pli_justificativas') || '{}');
+                var metadados = JSON.parse(localStorage.getItem('pli_metadados') || '{}');
 
                 if (indicadores.length === 0) {
-                    document.querySelector('#tabelaResultados tbody').innerHTML = `
-                        <tr><td colspan="4" style="text-align: center; color: var(--sigma-warning); padding: var(--spacing-xl);">
-                            ⚠️ Nenhum indicador encontrado. <a href="home.html" style="color: var(--sigma-primary);">Voltar ao início</a>
-                        </td></tr>
-                    `;
+                    document.querySelector('#tabelaResultados tbody').innerHTML =
+                        '<tr><td colspan="5" style="text-align: center; color: var(--sigma-warning); padding: var(--spacing-xl);">' +
+                        '⚠️ Nenhum indicador encontrado. <a href="home.html" style="color: var(--sigma-primary);">Voltar ao início</a>' +
+                        '</td></tr>';
                     return;
                 }
 
-                let somaIndicesGerais = 0;
-                let totalIndicadores = indicadores.length;
-                const resultados = [];
-                const analisesCriterios = Array(criterios.length).fill(0).map(() => ({ soma: 0, count: 0 }));
+                var somaIndicesGerais = 0;
+                var totalIndicadores = indicadores.length;
+                var resultados = [];
+                var analisesCriterios = [];
+                for (var ci = 0; ci < criterios.length; ci++) {
+                    analisesCriterios.push({ soma: 0, count: 0 });
+                }
 
-                // Processar cada indicador
-                indicadores.forEach((indicador, i) => {
-                    const scoreIndicador = scores[i] || {};
-                    const ia = calcularIA(scoreIndicador);
-                    const classificacao = classificar(ia);
-                    const criteriosPreenchidos = Object.keys(scoreIndicador).length;
+                indicadores.forEach(function(indicador, i) {
+                    var scoreIndicador = scores[i] || {};
+                    var ia = calcularIA(scoreIndicador);
+                    var classificacao = classificar(ia, scoreIndicador);
+                    var criteriosPreenchidos = Object.keys(scoreIndicador).length;
+                    var sensibilidade = calcularSensibilidade(scoreIndicador);
+                    var penalizacoes = verificarPenalizacao(scoreIndicador);
 
                     somaIndicesGerais += ia;
                     resultados.push({
-                        indicador: indicador.indicador || `Indicador ${i + 1}`,
+                        indicador: indicador.indicador || ('Indicador ' + (i + 1)),
                         ia: ia,
                         classificacao: classificacao,
-                        criteriosPreenchidos: criteriosPreenchidos
+                        criteriosPreenchidos: criteriosPreenchidos,
+                        sensibilidade: sensibilidade,
+                        penalizacoes: penalizacoes
                     });
 
-                    // Analisar critérios
-                    criterios.forEach((_, j) => {
+                    criterios.forEach(function(_, j) {
                         if (scoreIndicador[j] !== undefined) {
                             analisesCriterios[j].soma += scoreIndicador[j];
                             analisesCriterios[j].count++;
@@ -213,89 +288,207 @@
                     });
                 });
 
-                const indiceGeral = somaIndicesGerais / totalIndicadores;
+                var indiceGeral = somaIndicesGerais / totalIndicadores;
 
-                // Atualizar resumo geral
                 document.getElementById('indiceGeralValue').textContent = indiceGeral.toFixed(2);
-                document.getElementById('classificacaoGeralValue').textContent = classificar(indiceGeral);
+                document.getElementById('classificacaoGeralValue').textContent = classificar(indiceGeral, null);
                 document.getElementById('totalIndicadores').textContent = totalIndicadores;
 
-                // Popular tabela de resultados
-                const tbody = document.querySelector('#tabelaResultados tbody');
-                tbody.innerHTML = resultados.map(resultado => `
-                    <tr>
-                        <td><strong>${resultado.indicador}</strong></td>
-                        <td style="text-align: center; font-weight: 700; color: var(--sigma-primary);">${resultado.ia.toFixed(2)}</td>
-                        <td><span class="calculadora-badge ${getBadgeClass(resultado.classificacao)}">${resultado.classificacao}</span></td>
-                        <td style="text-align: center;">${resultado.criteriosPreenchidos}/7</td>
-                    </tr>
-                `).join('');
+                // Popular tabela com sensibilidade e penalizações
+                var tbody = document.querySelector('#tabelaResultados tbody');
+                tbody.innerHTML = resultados.map(function(r) {
+                    var sensBadge = '';
+                    if (r.sensibilidade.mudaCategoria) {
+                        sensBadge = '<div style="margin-top:4px;padding:3px 6px;background:#fff4e0;border-radius:4px;font-size:11px;color:var(--sigma-warning);">' +
+                            '⚠️ Sensível — faixa: ' + r.sensibilidade.iaMin.toFixed(2) + '–' + r.sensibilidade.iaMax.toFixed(2) +
+                            ' (' + r.sensibilidade.classeMin + ' → ' + r.sensibilidade.classeMax + ')' +
+                            '</div>';
+                    } else {
+                        sensBadge = '<div style="margin-top:4px;font-size:11px;color:var(--sigma-success);">' +
+                            '✅ Estável — faixa: ' + r.sensibilidade.iaMin.toFixed(2) + '–' + r.sensibilidade.iaMax.toFixed(2) +
+                            '</div>';
+                    }
+
+                    var penalizacaoBadge = '';
+                    if (r.penalizacoes.length > 0) {
+                        penalizacaoBadge = '<div style="margin-top:4px;padding:3px 6px;background:#fde8e6;border-radius:4px;font-size:11px;color:var(--sigma-error);">' +
+                            '⛔ Limiar eliminatório: ' + r.penalizacoes.join(', ') +
+                            '</div>';
+                    }
+
+                    return '<tr>' +
+                        '<td><strong>' + r.indicador + '</strong>' + penalizacaoBadge + '</td>' +
+                        '<td style="text-align: center; font-weight: 700; color: var(--sigma-primary);">' + r.ia.toFixed(2) + '</td>' +
+                        '<td><span class="calculadora-badge ' + getBadgeClass(r.classificacao) + '">' + r.classificacao + '</span></td>' +
+                        '<td style="text-align: center;">' + r.criteriosPreenchidos + '/7</td>' +
+                        '<td>' + sensBadge + '</td>' +
+                        '</tr>';
+                }).join('');
 
                 // Análise por critério
-                const analiseCriteriosContainer = document.getElementById('analiseCriterios');
-                analiseCriteriosContainer.innerHTML = criterios.map((criterio, i) => {
-                    const analise = analisesCriterios[i];
-                    const media = analise.count > 0 ? (analise.soma / analise.count).toFixed(2) : 'N/A';
+                var analiseCriteriosContainer = document.getElementById('analiseCriterios');
+                analiseCriteriosContainer.innerHTML = criterios.map(function(criterio, i) {
+                    var analise = analisesCriterios[i];
+                    var media = analise.count > 0 ? (analise.soma / analise.count).toFixed(2) : 'N/A';
                     
-                    return `
-                        <div style="background: var(--sigma-branco); border: 1px solid var(--sigma-gray-200); border-radius: var(--border-radius-md); padding: var(--spacing-lg); border-left: 4px solid ${criterio.cor};">
-                            <h4 style="margin: 0 0 var(--spacing-sm) 0; color: ${criterio.cor};">${criterio.nome}</h4>
-                            <p style="margin: 0 0 var(--spacing-md) 0; font-size: var(--font-size-sm); color: var(--sigma-gray-600);">${criterio.explicacao}</p>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Peso: ${criterio.peso}%</span>
-                                <span style="font-size: var(--font-size-lg); font-weight: 700; color: ${criterio.cor};">Média: ${media}</span>
-                            </div>
-                        </div>
-                    `;
+                    return '<div style="background: var(--sigma-branco); border: 1px solid var(--sigma-gray-200); border-radius: var(--border-radius-md); padding: var(--spacing-lg); border-left: 4px solid ' + criterio.cor + ';">' +
+                        '<h4 style="margin: 0 0 var(--spacing-sm) 0; color: ' + criterio.cor + ';">' + criterio.nome + '</h4>' +
+                        '<p style="margin: 0 0 var(--spacing-md) 0; font-size: var(--font-size-sm); color: var(--sigma-gray-600);">' + criterio.explicacao + '</p>' +
+                        '<div style="display: flex; justify-content: space-between; align-items: center;">' +
+                            '<span style="font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Peso: ' + criterio.peso + '%</span>' +
+                            '<span style="font-size: var(--font-size-lg); font-weight: 700; color: ' + criterio.cor + ';">Média: ' + media + '</span>' +
+                        '</div>' +
+                    '</div>';
                 }).join('');
 
             } catch (error) {
                 console.error('Erro ao carregar resultados:', error);
-                document.querySelector('#tabelaResultados tbody').innerHTML = `
-                    <tr><td colspan="4" style="text-align: center; color: var(--sigma-error); padding: var(--spacing-xl);">
-                        ❌ Erro ao carregar dados. <a href="home.html" style="color: var(--sigma-primary);">Reiniciar processo</a>
-                    </td></tr>
-                `;
+                document.querySelector('#tabelaResultados tbody').innerHTML =
+                    '<tr><td colspan="5" style="text-align: center; color: var(--sigma-error); padding: var(--spacing-xl);">' +
+                    '❌ Erro ao carregar dados. <a href="home.html" style="color: var(--sigma-primary);">Reiniciar processo</a>' +
+                    '</td></tr>';
             }
         }
 
-        // Função para exportar resultados
+        // ═══════════════════════════════════════════════════════════════
+        // EXPORTAÇÃO AUDITÁVEL — JSON completo com metadados, notas,
+        // justificativas, sensibilidade e versão dos pesos
+        // ═══════════════════════════════════════════════════════════════
         function exportarResultados() {
             try {
-                const indicadores = JSON.parse(localStorage.getItem('pli_indicadores') || '[]');
-                const scores = JSON.parse(localStorage.getItem('pli_scores') || '{}');
-                
-                let csvContent = "indicador,descricao,area,unidade_medida,fonte,ia_calculado,classificacao\n";
-                
-                indicadores.forEach((ind, i) => {
-                    const scoreIndicador = scores[i] || {};
-                    const ia = calcularIA(scoreIndicador);
-                    const classificacao = classificar(ia);
-                    
-                    csvContent += `"${ind.indicador || ''}","${ind.descricao || ''}","${ind.area || ''}","${ind.unidade_medida || ''}","${ind.fonte || ''}",${ia.toFixed(2)},"${classificacao}"\n`;
-                });
+                var indicadores = JSON.parse(localStorage.getItem('pli_indicadores') || '[]');
+                var scores = JSON.parse(localStorage.getItem('pli_scores') || '{}');
+                var justificativas = JSON.parse(localStorage.getItem('pli_justificativas') || '{}');
+                var metadados = JSON.parse(localStorage.getItem('pli_metadados') || '{}');
 
-                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-                const link = document.createElement('a');
-                const url = URL.createObjectURL(blob);
-                link.setAttribute('href', url);
-                link.setAttribute('download', `resultados-pli-${new Date().toISOString().split('T')[0]}.csv`);
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                // Perguntar formato
+                var formato = prompt('Escolha o formato de exportação:\n1 = CSV (simplificado)\n2 = JSON (auditável completo)', '2');
 
-                alert('📄 Relatório exportado com sucesso!');
+                if (formato === '1') {
+                    // CSV simplificado com notas por critério
+                    var csvHeader = 'indicador,descricao,area,unidade_medida,fonte';
+                    criterios.forEach(function(c) {
+                        csvHeader += ',' + c.nome.toLowerCase().replace(/ /g, '_') + ' (' + c.peso + '%)';
+                    });
+                    csvHeader += ',ia_calculado,classificacao,sensivel,ia_min,ia_max\n';
+
+                    var csvRows = indicadores.map(function(ind, i) {
+                        var scoreInd = scores[i] || {};
+                        var ia = calcularIA(scoreInd);
+                        var classificacao = classificar(ia, scoreInd);
+                        var sens = calcularSensibilidade(scoreInd);
+
+                        var row = '"' + (ind.indicador || '') + '","' + (ind.descricao || '') + '","' +
+                            (ind.area || '') + '","' + (ind.unidade_medida || '') + '","' + (ind.fonte || '') + '"';
+                        
+                        criterios.forEach(function(c, j) {
+                            row += ',' + (scoreInd[j] !== undefined ? scoreInd[j] : '');
+                        });
+
+                        row += ',' + ia.toFixed(2) + ',"' + classificacao + '",' +
+                            (sens.mudaCategoria ? 'SIM' : 'NAO') + ',' +
+                            sens.iaMin.toFixed(2) + ',' + sens.iaMax.toFixed(2);
+                        
+                        return row;
+                    }).join('\n');
+
+                    var csvContent = csvHeader + csvRows;
+                    downloadFile(csvContent, 'resultados-pli-' + getDateStr() + '.csv', 'text/csv;charset=utf-8;');
+
+                } else if (formato === '2') {
+                    // JSON auditável completo
+                    var relatorio = {
+                        _formato: 'PLI-SIGMA Relatório Auditável v1.0',
+                        metadados: {
+                            dataExportacao: new Date().toISOString(),
+                            dataAvaliacao: metadados.dataAvaliacao || 'não registrada',
+                            avaliador: metadados.avaliador || 'não informado',
+                            objetoEstudo: metadados.objetoEstudo || 'não informado',
+                            versaoPesos: metadados.versaoPesos || '1.0'
+                        },
+                        configuracao: {
+                            criterios: criterios.map(function(c) {
+                                return { nome: c.nome, peso: c.peso + '%' };
+                            }),
+                            limiares_eliminatorios: LIMIARES_ELIMINATORIOS.map(function(l) {
+                                return { criterio: l.nome, nota_minima: l.minimoNota };
+                            }),
+                            faixas_classificacao: [
+                                { classe: 'Direto', faixa: 'IA >= 4.0' },
+                                { classe: 'Proxy Forte', faixa: '3.0 <= IA < 4.0' },
+                                { classe: 'Proxy Moderado', faixa: '2.0 <= IA < 3.0' },
+                                { classe: 'Incerto/Espúrio', faixa: 'IA < 2.0' }
+                            ]
+                        },
+                        indicadores: indicadores.map(function(ind, i) {
+                            var scoreInd = scores[i] || {};
+                            var ia = calcularIA(scoreInd);
+                            var classificacao = classificar(ia, scoreInd);
+                            var sens = calcularSensibilidade(scoreInd);
+                            var penalizacoes = verificarPenalizacao(scoreInd);
+
+                            var avaliacoes = criterios.map(function(c, j) {
+                                var justKey = i + '-' + j;
+                                return {
+                                    criterio: c.nome,
+                                    peso: c.peso + '%',
+                                    nota: scoreInd[j] !== undefined ? scoreInd[j] : null,
+                                    justificativa: justificativas[justKey] || null
+                                };
+                            });
+
+                            return {
+                                nome: ind.indicador || ('Indicador ' + (i + 1)),
+                                descricao: ind.descricao || '',
+                                area: ind.area || '',
+                                unidade_medida: ind.unidade_medida || '',
+                                fonte: ind.fonte || '',
+                                avaliacoes: avaliacoes,
+                                resultado: {
+                                    indice_aderencia: parseFloat(ia.toFixed(4)),
+                                    classificacao: classificacao,
+                                    penalizado_limiar: penalizacoes.length > 0,
+                                    penalizacoes: penalizacoes
+                                },
+                                sensibilidade: {
+                                    ia_minimo: parseFloat(sens.iaMin.toFixed(4)),
+                                    ia_maximo: parseFloat(sens.iaMax.toFixed(4)),
+                                    muda_categoria: sens.mudaCategoria,
+                                    classe_minima: sens.classeMin,
+                                    classe_maxima: sens.classeMax
+                                }
+                            };
+                        })
+                    };
+
+                    var jsonContent = JSON.stringify(relatorio, null, 2);
+                    downloadFile(jsonContent, 'relatorio-auditavel-pli-' + getDateStr() + '.json', 'application/json;charset=utf-8;');
+                }
             } catch (error) {
                 console.error('Erro ao exportar:', error);
                 alert('❌ Erro ao exportar relatório.');
             }
         }
 
-        // Inicialização
+        function getDateStr() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function downloadFile(content, filename, mimeType) {
+            var blob = new Blob([content], { type: mimeType });
+            var link = document.createElement('a');
+            var url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             carregarResultados();
-            console.log('📊 Página de Resultados carregada com sucesso!');
         });
     </script>
 </body>

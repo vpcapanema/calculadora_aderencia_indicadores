@@ -119,6 +119,69 @@
     </div> <!-- Fecha pli-main-container -->
 
     <script>
+        // ═══════════════════════════════════════════════════════════════
+        // RUBRICS DESCRITIVAS — ancoragem textual para cada nível (0-5)
+        // de cada critério, eliminando ambiguidade entre avaliadores
+        // ═══════════════════════════════════════════════════════════════
+        const rubrics = {
+            0: { // Proximidade Conceitual
+                0: 'Nenhuma relação entre o conceito do indicador e o fenômeno estudado',
+                1: 'Relação tangencial ou muito indireta com o fenômeno',
+                2: 'Relação parcial — mede aspecto correlato mas não o fenômeno em si',
+                3: 'Relação moderada — capta parte relevante do fenômeno',
+                4: 'Relação forte — mede o fenômeno com pequenas limitações',
+                5: 'Relação direta e inequívoca com o fenômeno de interesse'
+            },
+            1: { // Mecanismo Causal
+                0: 'Sem mecanismo causal identificável entre indicador e fenômeno',
+                1: 'Hipótese causal fraca, sem fundamentação teórica robusta',
+                2: 'Mecanismo causal plausível mas com muitas variáveis intervenientes',
+                3: 'Mecanismo causal documentado com algumas ressalvas',
+                4: 'Mecanismo causal bem estabelecido na literatura',
+                5: 'Causalidade direta e amplamente comprovada'
+            },
+            2: { // Validade Empírica
+                0: 'Sem evidências empíricas de associação com o fenômeno',
+                1: 'Evidências pontuais ou anedóticas apenas',
+                2: 'Alguns estudos com resultados inconsistentes entre si',
+                3: 'Estudos razoáveis com resultados parcialmente convergentes',
+                4: 'Base empírica sólida com consistência estatística demonstrada',
+                5: 'Ampla validação empírica com alta significância e replicabilidade'
+            },
+            3: { // Especificidade
+                0: 'Indicador genérico — influenciado por muitos fatores não relacionados',
+                1: 'Muito baixa especificidade — difícil isolar o fenômeno alvo',
+                2: 'Especificidade limitada — variáveis externas relevantes não controladas',
+                3: 'Especificidade moderada — principais confundidores identificáveis',
+                4: 'Alta especificidade — poucas variáveis externas interferem',
+                5: 'Especificidade máxima — indicador isolado e dedicado ao fenômeno'
+            },
+            4: { // Sensibilidade
+                0: 'Insensível a variações reais do fenômeno no tempo ou espaço',
+                1: 'Detecta apenas variações extremas ou de grande magnitude',
+                2: 'Sensibilidade limitada — detecta tendências mas não oscilações',
+                3: 'Sensibilidade moderada — capta mudanças relevantes',
+                4: 'Boa sensibilidade — reage a variações significativas em tempo útil',
+                5: 'Alta sensibilidade — detecta variações sutis com rapidez'
+            },
+            5: { // Mensurabilidade
+                0: 'Dados inexistentes ou inacessíveis para mensuração',
+                1: 'Dados esparsos, sem série histórica ou padronização',
+                2: 'Dados disponíveis mas com lacunas significativas ou baixa precisão',
+                3: 'Dados razoavelmente acessíveis e com precisão aceitável',
+                4: 'Dados bem documentados, acessíveis e replicáveis',
+                5: 'Dados públicos, padronizados, série histórica longa e alta precisão'
+            },
+            6: { // Custo-Benefício
+                0: 'Custo proibitivo de coleta com valor analítico irrisório',
+                1: 'Custo muito alto para benefício analítico marginal',
+                2: 'Custo significativo com retorno analítico limitado',
+                3: 'Relação custo-benefício equilibrada',
+                4: 'Bom retorno analítico com custo moderado de coleta',
+                5: 'Excelente retorno — dados de fácil obtenção com alto valor analítico'
+            }
+        };
+
         // Dados dos critérios com pesos
         const criterios = [
             { nome: 'Proximidade conceitual', peso: 30, explicacao: 'Alinhamento entre o conceito e o que é medido.' },
@@ -130,26 +193,37 @@
             { nome: 'Custo-benefício', peso: 5, explicacao: 'Relação entre esforço de coleta e valor analítico.' }
         ];
 
+        // Critérios eliminatórios — índices dos critérios que exigem nota mínima
+        const LIMIARES_ELIMINATORIOS = [
+            { criterioIndex: 0, minimoNota: 2, nome: 'Proximidade Conceitual' },
+            { criterioIndex: 1, minimoNota: 2, nome: 'Mecanismo Causal' }
+        ];
+
+        // Notas que exigem justificativa obrigatória
+        const NOTAS_EXIGEM_JUSTIFICATIVA = [0, 1, 5];
+
         let indicadores = [];
         let scores = {};
+        let justificativas = {}; // { "indicadorIndex-criterioIndex": "texto" }
 
         // Carregar dados dos indicadores (da sessão anterior ou localStorage)
         function carregarDados() {
-            // Tentar carregar do localStorage primeiro
             const dadosSalvos = localStorage.getItem('pli_indicadores');
             const scoresSalvos = localStorage.getItem('pli_scores');
+            const justificativasSalvas = localStorage.getItem('pli_justificativas');
             
             if (dadosSalvos) {
                 indicadores = JSON.parse(dadosSalvos);
-                console.log('📊 Dados carregados do localStorage:', indicadores.length, 'indicadores');
             }
             
             if (scoresSalvos) {
                 scores = JSON.parse(scoresSalvos);
-                console.log('📊 Scores carregados do localStorage');
             }
 
-            // Se não houver dados, usar dados de exemplo
+            if (justificativasSalvas) {
+                justificativas = JSON.parse(justificativasSalvas);
+            }
+
             if (indicadores.length === 0) {
                 indicadores = [
                     {
@@ -167,11 +241,16 @@
                         fonte: "DNIT"
                     }
                 ];
-                console.log('📊 Usando dados de exemplo');
             }
 
             renderizarIndicadores();
             atualizarProgresso();
+        }
+
+        // Obter rubric tooltip para um critério e nível
+        function getRubricTooltip(criterioIndex, nivel) {
+            const r = rubrics[criterioIndex];
+            return r ? (r[nivel] || '') : '';
         }
 
         // Renderizar indicadores na tela
@@ -183,46 +262,65 @@
                 const cardHtml = `
                     <div class="calculadora-indicador-card" style="margin-bottom: var(--spacing-xl);">
                         <h3 class="calculadora-indicador-title">
-                            ${ind.indicador || `Indicador ${i + 1}`}
+                            ${ind.indicador || 'Indicador ' + (i + 1)}
                             <span style="font-size: var(--font-size-sm); font-weight: normal; color: var(--sigma-gray-600);">
-                                (${ind.area} - ${ind.fonte})
+                                (${ind.area || '—'} - ${ind.fonte || '—'})
                             </span>
                         </h3>
                         <p style="margin-bottom: var(--spacing-md); color: var(--sigma-gray-700); font-size: var(--font-size-sm);">
-                            ${ind.descricao}
+                            ${ind.descricao || ''}
                         </p>
                         
                         <table class="calculadora-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 25%;">Critério (Peso)</th>
-                                    <th style="width: 45%;">Explicação</th>
+                                    <th style="width: 20%;">Critério (Peso)</th>
+                                    <th style="width: 30%;">Explicação</th>
                                     <th style="width: 30%;">Nível (0–5)</th>
+                                    <th style="width: 20%;">Rubric / Justificativa</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${criterios.map((c, j) => `
-                                    <tr>
-                                        <td><strong>${c.nome}</strong><br><small style="color: var(--sigma-warning);">(${c.peso}%)</small></td>
-                                        <td style="color: var(--sigma-gray-600);">${c.explicacao}</td>
-                                        <td>
-                                            <div class="calculadora-radio-group">
-                                                ${[0, 1, 2, 3, 4, 5].map(v => `
-                                                    <label class="calculadora-radio-item">
-                                                        <input
-                                                            type="radio"
-                                                            name="score-${i}-${j}"
-                                                            value="${v}"
-                                                            ${scores[i]?.[j] === v ? 'checked' : ''}
-                                                            onchange="handleScoreChange(${i}, ${j}, ${v})"
-                                                        />
-                                                        <span class="calculadora-radio-label">${v}</span>
-                                                    </label>
-                                                `).join('')}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                `).join('')}
+                                ${criterios.map((c, j) => {
+                                    const selectedVal = scores[i] && scores[i][j] !== undefined ? scores[i][j] : null;
+                                    const needsJustification = selectedVal !== null && NOTAS_EXIGEM_JUSTIFICATIVA.includes(selectedVal);
+                                    const justKey = i + '-' + j;
+                                    const justText = justificativas[justKey] || '';
+                                    const rubricText = selectedVal !== null ? getRubricTooltip(j, selectedVal) : 'Selecione um nível para ver a descrição';
+                                    const isEliminatorio = LIMIARES_ELIMINATORIOS.some(l => l.criterioIndex === j);
+                                    const eliminatorioWarning = isEliminatorio && selectedVal !== null && selectedVal < 2
+                                        ? '<div style="margin-top:4px;padding:4px 8px;background:#fde8e6;border-radius:4px;font-size:11px;color:var(--sigma-error);">⚠️ Nota abaixo do limiar mínimo (2) — classificação será limitada a Incerto/Espúrio</div>'
+                                        : '';
+                                    
+                                    return '<tr>' +
+                                        '<td><strong>' + c.nome + '</strong><br><small style="color: var(--sigma-warning);">(' + c.peso + '%)</small>' +
+                                        (isEliminatorio ? '<br><small style="color:var(--sigma-error);font-weight:600;">⛔ Eliminatório</small>' : '') +
+                                        '</td>' +
+                                        '<td style="color: var(--sigma-gray-600);">' + c.explicacao + '</td>' +
+                                        '<td>' +
+                                            '<div class="calculadora-radio-group">' +
+                                                [0, 1, 2, 3, 4, 5].map(function(v) {
+                                                    return '<label class="calculadora-radio-item" title="' + getRubricTooltip(j, v) + '">' +
+                                                        '<input type="radio" name="score-' + i + '-' + j + '" value="' + v + '" ' +
+                                                        (selectedVal === v ? 'checked' : '') +
+                                                        ' onchange="handleScoreChange(' + i + ', ' + j + ', ' + v + ')" />' +
+                                                        '<span class="calculadora-radio-label">' + v + '</span>' +
+                                                    '</label>';
+                                                }).join('') +
+                                            '</div>' +
+                                        '</td>' +
+                                        '<td>' +
+                                            '<div id="rubric-' + i + '-' + j + '" style="font-size:12px;color:var(--sigma-gray-700);font-style:italic;margin-bottom:4px;">' +
+                                                rubricText +
+                                            '</div>' +
+                                            eliminatorioWarning +
+                                            '<div id="just-container-' + i + '-' + j + '" style="' + (needsJustification ? '' : 'display:none;') + 'margin-top:6px;">' +
+                                                '<label style="font-size:11px;color:var(--sigma-error);font-weight:600;display:block;margin-bottom:2px;">⚠ Justificativa obrigatória (nota ' + (selectedVal !== null ? selectedVal : '') + '):</label>' +
+                                                '<textarea id="just-' + i + '-' + j + '" rows="2" style="width:100%;font-size:12px;border:1px solid var(--sigma-gray-300);border-radius:4px;padding:4px;resize:vertical;" placeholder="Justifique esta nota..." onchange="handleJustificativaChange(' + i + ', ' + j + ', this.value)">' + justText + '</textarea>' +
+                                            '</div>' +
+                                        '</td>' +
+                                    '</tr>';
+                                }).join('')}
                             </tbody>
                         </table>
                     </div>
@@ -240,22 +338,59 @@
             }
             scores[indicadorIndex][criterioIndex] = parseInt(valor);
             
-            // Salvar automaticamente no localStorage
             localStorage.setItem('pli_scores', JSON.stringify(scores));
+
+            // Atualizar rubric text
+            const rubricEl = document.getElementById('rubric-' + indicadorIndex + '-' + criterioIndex);
+            if (rubricEl) {
+                rubricEl.textContent = getRubricTooltip(criterioIndex, parseInt(valor));
+            }
+
+            // Mostrar/ocultar campo de justificativa
+            const justContainer = document.getElementById('just-container-' + indicadorIndex + '-' + criterioIndex);
+            if (justContainer) {
+                if (NOTAS_EXIGEM_JUSTIFICATIVA.includes(parseInt(valor))) {
+                    justContainer.style.display = '';
+                    justContainer.querySelector('label').textContent = '⚠ Justificativa obrigatória (nota ' + valor + '):';
+                } else {
+                    justContainer.style.display = 'none';
+                }
+            }
+
+            // Atualizar aviso de limiar eliminatório
+            const isEliminatorio = LIMIARES_ELIMINATORIOS.some(function(l) { return l.criterioIndex === criterioIndex; });
+            if (isEliminatorio) {
+                renderizarIndicadores(); // Re-renderizar para exibir/remover o aviso
+                // Restaurar seleção de radio buttons após re-render
+            }
             
             atualizarProgresso();
-            console.log(`📊 Score atualizado: Indicador ${indicadorIndex}, Critério ${criterioIndex} = ${valor}`);
+        }
+
+        // Manipular mudança de justificativa
+        function handleJustificativaChange(indicadorIndex, criterioIndex, texto) {
+            var key = indicadorIndex + '-' + criterioIndex;
+            justificativas[key] = texto;
+            localStorage.setItem('pli_justificativas', JSON.stringify(justificativas));
         }
 
         // Atualizar barra de progresso
         function atualizarProgresso() {
             const totalCells = indicadores.length * criterios.length;
             let preenchidas = 0;
+            let justificativasPendentes = 0;
 
-            indicadores.forEach((ind, i) => {
-                criterios.forEach((c, j) => {
+            indicadores.forEach(function(ind, i) {
+                criterios.forEach(function(c, j) {
                     if (scores[i] && scores[i][j] !== undefined) {
                         preenchidas++;
+                        // Verificar se nota exige justificativa e se foi preenchida
+                        if (NOTAS_EXIGEM_JUSTIFICATIVA.includes(scores[i][j])) {
+                            var key = i + '-' + j;
+                            if (!justificativas[key] || justificativas[key].trim() === '') {
+                                justificativasPendentes++;
+                            }
+                        }
                     }
                 });
             });
@@ -263,20 +398,26 @@
             const porcentagem = Math.round((preenchidas / totalCells) * 100);
             
             document.getElementById('progressFill').style.width = porcentagem + '%';
-            document.getElementById('progressText').textContent = 
-                `${preenchidas} de ${totalCells} avaliações preenchidas (${porcentagem}%)`;
+            
+            let statusText = preenchidas + ' de ' + totalCells + ' avaliações preenchidas (' + porcentagem + '%)';
+            if (justificativasPendentes > 0) {
+                statusText += ' — ⚠️ ' + justificativasPendentes + ' justificativa(s) pendente(s)';
+            }
+            document.getElementById('progressText').textContent = statusText;
 
-            // Habilitar botão calcular se tudo estiver preenchido
-            document.getElementById('btnCalcular').disabled = porcentagem < 100;
+            // Habilitar botão somente se tudo preenchido E sem justificativas pendentes
+            document.getElementById('btnCalcular').disabled = (porcentagem < 100 || justificativasPendentes > 0);
         }
 
         // Limpar todas as avaliações
         function limparTudo() {
             if (confirm('⚠️ Tem certeza que deseja limpar todas as avaliações? Esta ação não pode ser desfeita.')) {
                 scores = {};
+                justificativas = {};
                 localStorage.removeItem('pli_scores');
+                localStorage.removeItem('pli_justificativas');
                 renderizarIndicadores();
-                console.log('🗑️ Todas as avaliações foram limpas');
+                atualizarProgresso();
             }
         }
 
@@ -284,49 +425,52 @@
         function salvarProgresso() {
             localStorage.setItem('pli_indicadores', JSON.stringify(indicadores));
             localStorage.setItem('pli_scores', JSON.stringify(scores));
+            localStorage.setItem('pli_justificativas', JSON.stringify(justificativas));
             
-            // Feedback visual
-            const btn = event.target;
-            const originalText = btn.innerHTML;
+            var btn = event.target;
+            var originalText = btn.innerHTML;
             btn.innerHTML = '✅ Salvo!';
             btn.style.background = 'var(--sigma-success)';
             
-            setTimeout(() => {
+            setTimeout(function() {
                 btn.innerHTML = originalText;
                 btn.style.background = '';
             }, 2000);
-            
-            console.log('💾 Progresso salvo no localStorage');
         }
 
         // Calcular resultados finais
         function calcularResultados() {
-            // Salvar dados antes de ir para resultados
             localStorage.setItem('pli_indicadores', JSON.stringify(indicadores));
             localStorage.setItem('pli_scores', JSON.stringify(scores));
+            localStorage.setItem('pli_justificativas', JSON.stringify(justificativas));
             
-            console.log('🧮 Calculando resultados...');
+            // Salvar metadados da avaliação
+            var metadados = {
+                dataAvaliacao: new Date().toISOString(),
+                avaliador: localStorage.getItem('pli_avaliador') || '',
+                objetoEstudo: localStorage.getItem('pli_objeto_estudo') || '',
+                versaoPesos: '1.0',
+                pesos: criterios.map(function(c) { return { nome: c.nome, peso: c.peso }; })
+            };
+            localStorage.setItem('pli_metadados', JSON.stringify(metadados));
             
-            // Redirecionar para página de resultados
             window.location.href = 'resultados.html';
         }
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
             carregarDados();
-            console.log('📊 Página de Atribuição de Níveis carregada com sucesso!');
         });
 
         // Verificar se há dados na URL (vindo da home)
-        const urlParams = new URLSearchParams(window.location.search);
+        var urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('dados')) {
             try {
-                const dadosUrl = JSON.parse(decodeURIComponent(urlParams.get('dados')));
+                var dadosUrl = JSON.parse(decodeURIComponent(urlParams.get('dados')));
                 indicadores = dadosUrl;
                 localStorage.setItem('pli_indicadores', JSON.stringify(indicadores));
-                console.log('📊 Dados recebidos da página anterior:', indicadores.length, 'indicadores');
             } catch (e) {
-                console.error('❌ Erro ao processar dados da URL:', e);
+                console.error('Erro ao processar dados da URL:', e);
             }
         }
     </script>
