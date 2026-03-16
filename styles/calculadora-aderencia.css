@@ -15,23 +15,23 @@
 
 .calculadora-container {
     min-height: 100vh;
-    background: var(--sigma-gray-50);
+    background: var(--pli-gray-bg, #f0f0f1);
     padding: var(--spacing-xl);
     font-family: var(--font-family);
 }
 
 .calculadora-card {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1400px;
+    margin: 0 auto var(--spacing-xl);
     background: var(--sigma-branco);
-    border-radius: var(--border-radius-xl);
+    border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-lg);
     padding: var(--spacing-2xl);
     border: 1px solid var(--sigma-gray-200);
 }
 
 .calculadora-card.wide {
-    max-width: 1400px;
+    max-width: 1600px;
 }
 
 /* ==========================================
@@ -362,25 +362,25 @@
 }
 
 .calculadora-badge.direto {
-    background: var(--sigma-verde-claro);
-    color: var(--sigma-success);
-    border: 1px solid var(--sigma-success);
+    background: rgba(62, 194, 110, 0.12);
+    color: var(--pli-green-dark, #2aa358);
+    border: 1px solid var(--pli-green-dark, #2aa358);
 }
 
 .calculadora-badge.proxy-forte {
-    background: var(--sigma-accent);
-    color: var(--sigma-info);
-    border: 1px solid var(--sigma-info);
+    background: rgba(17, 101, 147, 0.08);
+    color: var(--pli-blue, #116593);
+    border: 1px solid var(--pli-blue, #116593);
 }
 
 .calculadora-badge.proxy-moderado {
-    background: #fff4e0;
-    color: var(--sigma-warning);
+    background: rgba(243, 156, 18, 0.1);
+    color: #d68910;
     border: 1px solid var(--sigma-warning);
 }
 
 .calculadora-badge.incerto {
-    background: #fde8e6;
+    background: rgba(192, 57, 43, 0.08);
     color: var(--sigma-error);
     border: 1px solid var(--sigma-error);
 }
@@ -567,4 +567,300 @@
 .calculadora-radio-item input:focus {
     outline: 2px solid var(--sigma-primary);
     outline-offset: 2px;
+}
+
+/* ==========================================
+   TEXTO JUSTIFICADO (padrão PLI)
+   ========================================== */
+
+.pli-card p,
+.pli-section p,
+.calculadora-card p,
+.methodology-text,
+.step-description {
+    text-align: justify;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   ÍCONES SVG INLINE PLI
+   ========================================== */
+
+.pli-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25em;
+    height: 1.25em;
+    vertical-align: -0.15em;
+    flex-shrink: 0;
+}
+
+.pli-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+.pli-icon-sm { width: 1em; height: 1em; }
+.pli-icon-lg { width: 1.5em; height: 1.5em; }
+.pli-icon-xl { width: 2em; height: 2em; }
+
+/* ==========================================
+   BOTÕES PLI GRADIENTE
+   ========================================== */
+
+.calculadora-btn.primary {
+    background: var(--pli-gradient-btn, linear-gradient(135deg, #116593 0%, #1c3d59 100%));
+    color: var(--sigma-branco);
+    border: none;
+}
+
+.calculadora-btn.primary:hover {
+    background: linear-gradient(135deg, #1c3d59 0%, #003b5a 100%);
+    box-shadow: var(--shadow-hover, 0px 8px 32px rgba(28, 61, 89, 0.25));
+}
+
+/* ==========================================
+   SENSIBILIDADE / ESTABILIDADE BADGES
+   ========================================== */
+
+.calculadora-badge.estavel {
+    background: rgba(62, 194, 110, 0.12);
+    color: var(--pli-green-dark, #2aa358);
+    border: 1px solid var(--pli-green-dark, #2aa358);
+}
+
+.calculadora-badge.sensivel {
+    background: rgba(243, 156, 18, 0.1);
+    color: #d68910;
+    border: 1px solid var(--sigma-warning);
+}
+
+/* ==========================================
+   ALERTA (USADO NA V2 — JUSTIFICATIVAS)
+   ========================================== */
+
+.calculadora-alert {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+}
+
+.calculadora-alert.warning {
+    background: rgba(243, 156, 18, 0.1);
+    color: #d68910;
+    border-left: 4px solid var(--sigma-warning);
+}
+
+/* ==========================================
+   JUSTIFICATIVA (TEXTAREA)
+   ========================================== */
+
+.calculadora-justificativa-box {
+    background: var(--sigma-gray-50);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    border-left: 3px solid var(--sigma-accent);
+}
+
+.calculadora-justificativa-box label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--sigma-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.calculadora-textarea {
+    width: 100%;
+    border: 1px solid var(--sigma-gray-300);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-sm);
+    font-family: var(--font-family-secondary, var(--font-family));
+    font-size: var(--font-size-sm);
+    resize: vertical;
+    min-height: 3rem;
+}
+
+.calculadora-textarea:focus {
+    outline: none;
+    border-color: var(--sigma-accent);
+    box-shadow: 0 0 0 2px rgba(17, 101, 147, 0.15);
+}
+
+/* ==========================================
+   RUBRICA / ELIMINATÓRIO
+   ========================================== */
+
+.calculadora-rubric-cell {
+    font-size: var(--font-size-xs);
+    color: var(--sigma-gray-600);
+    max-width: 280px;
+}
+
+.calculadora-row-violado {
+    background: rgba(192, 57, 43, 0.04) !important;
+}
+
+.calculadora-eliminatorio-warning {
+    font-size: var(--font-size-xs);
+    color: var(--sigma-error);
+    font-weight: 600;
+    margin-top: var(--spacing-xs);
+}
+
+.calculadora-badge-small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6875rem;
+    margin-left: 0.25rem;
+    vertical-align: super;
+}
+
+.calculadora-badge-small.eliminatorio {
+    color: var(--sigma-error);
+}
+
+.calculadora-penalizado-detail {
+    font-size: var(--font-size-xs);
+    color: var(--sigma-error);
+    margin-top: var(--spacing-xs);
+}
+
+/* ==========================================
+   EXPORTAÇÃO
+   ========================================== */
+
+.calculadora-export-section {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.calculadora-export-section h3 {
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ==========================================
+   TEXT INPUT PLI
+   ========================================== */
+
+.calculadora-text-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--sigma-gray-300);
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    color: var(--sigma-gray-800);
+    transition: border-color var(--transition-base, 0.3s ease);
+}
+
+.calculadora-text-input:focus {
+    outline: none;
+    border-color: var(--sigma-accent);
+    box-shadow: 0 0 0 2px rgba(17, 101, 147, 0.15);
+}
+
+/* ==========================================
+   UTILITY CLASSES — texto e alinhamento
+   ========================================== */
+
+.text-center { text-align: center; }
+.text-bold { font-weight: 700; }
+.text-primary { color: var(--sigma-primary); }
+
+/* ==========================================
+   EMPTY / ERROR STATES — tabela
+   ========================================== */
+
+.calculadora-empty-state {
+    text-align: center;
+    color: var(--sigma-warning);
+    padding: var(--spacing-xl);
+}
+
+.calculadora-empty-state a {
+    color: var(--sigma-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.calculadora-error-state {
+    color: var(--sigma-error);
+}
+
+/* ==========================================
+   BADGES SMALL — sensibilidade e eliminatório
+   ========================================== */
+
+.calculadora-badge-small {
+    margin-top: 4px;
+    padding: 3px 6px;
+    border-radius: var(--border-radius-sm);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.calculadora-badge-small.estavel {
+    color: var(--sigma-success);
+}
+
+.calculadora-badge-small.sensivel {
+    background: #fff4e0;
+    color: var(--sigma-warning);
+}
+
+.calculadora-eliminatorio-warning {
+    margin-top: 4px;
+    padding: 3px 6px;
+    background: #fde8e6;
+    border-radius: var(--border-radius-sm);
+    font-size: 11px;
+    color: var(--sigma-error);
+    line-height: 1.4;
+}
+
+/* ==========================================
+   CRITERION ANALYSIS CARD — gerado via JS
+   ========================================== */
+
+.criterion-analysis-card {
+    background: var(--sigma-branco, #fff);
+    border: 1px solid var(--sigma-gray-200);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    border-left: 4px solid currentColor;
+}
+
+.criterion-analysis-title {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-base);
+}
+
+.criterion-analysis-desc {
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-size-sm);
+    color: var(--sigma-gray-600);
+}
+
+.criterion-analysis-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.criterion-analysis-peso {
+    font-size: var(--font-size-sm);
+    color: var(--sigma-gray-700);
+}
+
+.criterion-analysis-media {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
 }

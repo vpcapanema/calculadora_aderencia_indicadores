@@ -18,6 +18,7 @@
     <!-- CSS da aplicação -->
     <link rel="stylesheet" href="./styles/global.css">
     <link rel="stylesheet" href="./styles/calculadora-aderencia.css">
+    <link rel="stylesheet" href="./styles/home.css">
 </head>
 <body>
     <!-- Container Principal Padronizado -->
@@ -28,63 +29,63 @@
             <div class="pli-card">
                 <div class="pli-page-header">
                     <div>
-                        <h1 class="pli-page-title">📊 Atribuição de Níveis de Aderência</h1>
+                        <h1 class="pli-page-title">Atribuição de Níveis de Aderência</h1>
                         <p class="pli-page-subtitle">Avalie cada indicador nos 7 critérios metodológicos (escala 0-5)</p>
                     </div>
                     <div class="pli-page-nav">
-                        <a href="home.html" style="color: var(--sigma-info); text-decoration: none;">🏠 Início</a>
-                        <span style="margin: 0 var(--spacing-sm); color: var(--sigma-gray-400);">→</span>
-                        <span style="color: var(--sigma-gray-800); font-weight: 600;">Atribuição de Níveis</span>
+                        <a href="home.html">Início</a>
+                        <span class="nav-separator">→</span>
+                        <span class="nav-current">Atribuição de Níveis</span>
                     </div>
                 </div>
             </div>
 
             <!-- Informações dos Critérios -->
             <div class="pli-card">
-                <h2 style="color: var(--sigma-primary); font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-lg);">📋 Critérios de Avaliação</h2>
+                <h2 class="section-heading">Critérios de Avaliação</h2>
                 <div class="pli-grid cols-auto">
                 
-                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-primary);">
-                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-primary);">Proximidade Conceitual (30%)</h4>
-                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Alinhamento entre o conceito e o que é medido</p>
+                <div class="criterion-card" style="border-left: 4px solid var(--sigma-primary);">
+                    <h4 style="color: var(--sigma-primary);">Proximidade Conceitual (30%)</h4>
+                    <p>Alinhamento entre o conceito e o que é medido</p>
                 </div>
                 
-                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-secondary);">
-                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-secondary);">Mecanismo Causal (20%)</h4>
-                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Força da relação causal entre fenômeno e métrica</p>
+                <div class="criterion-card" style="border-left: 4px solid var(--sigma-secondary);">
+                    <h4 style="color: var(--sigma-secondary);">Mecanismo Causal (20%)</h4>
+                    <p>Força da relação causal entre fenômeno e métrica</p>
                 </div>
                 
-                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-info);">
-                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-info);">Validade Empírica (15%)</h4>
-                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Evidências empíricas e consistência estatística</p>
+                <div class="criterion-card" style="border-left: 4px solid var(--sigma-info);">
+                    <h4 style="color: var(--sigma-info);">Validade Empírica (15%)</h4>
+                    <p>Evidências empíricas e consistência estatística</p>
                 </div>
                 
-                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-success);">
-                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-success);">Especificidade (10%)</h4>
-                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Isolamento do fenômeno alvo de variáveis externas</p>
+                <div class="criterion-card" style="border-left: 4px solid var(--sigma-success);">
+                    <h4 style="color: var(--sigma-success);">Especificidade (10%)</h4>
+                    <p>Isolamento do fenômeno alvo de variáveis externas</p>
                 </div>
                 
-                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-warning);">
-                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-warning);">Sensibilidade (10%)</h4>
-                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Reatividade a variações reais no tempo/espaço</p>
+                <div class="criterion-card" style="border-left: 4px solid var(--sigma-warning);">
+                    <h4 style="color: var(--sigma-warning);">Sensibilidade (10%)</h4>
+                    <p>Reatividade a variações reais no tempo/espaço</p>
                 </div>
                 
-                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-verde-medio);">
-                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-verde-medio);">Mensurabilidade (10%)</h4>
-                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Disponibilidade, precisão e replicabilidade dos dados</p>
+                <div class="criterion-card" style="border-left: 4px solid var(--sigma-verde-medio);">
+                    <h4 style="color: var(--sigma-verde-medio);">Mensurabilidade (10%)</h4>
+                    <p>Disponibilidade, precisão e replicabilidade dos dados</p>
                 </div>
                 
-                <div style="background: var(--sigma-accent); padding: var(--spacing-md); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-error);">
-                    <h4 style="margin: 0 0 var(--spacing-xs) 0; color: var(--sigma-error);">Custo-benefício (5%)</h4>
-                    <p style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Relação entre esforço de coleta e valor analítico</p>
+                <div class="criterion-card" style="border-left: 4px solid var(--sigma-error);">
+                    <h4 style="color: var(--sigma-error);">Custo-benefício (5%)</h4>
+                    <p>Relação entre esforço de coleta e valor analítico</p>
                 </div>
             </div>
         </div>
 
         <!-- Avaliação dos Indicadores -->
         <div class="calculadora-card wide">
-            <h2 class="calculadora-subtitle">📊 Avaliação dos Indicadores</h2>
-            <p style="margin-bottom: var(--spacing-lg); color: var(--sigma-gray-600);">
+            <h2 class="calculadora-subtitle">Avaliação dos Indicadores</h2>
+            <p class="section-intro">
                 <span class="calculadora-badge direto">0 = Inexistente</span>
                 <span class="calculadora-badge proxy-forte">3 = Moderado</span>
                 <span class="calculadora-badge proxy-moderado">5 = Excelente</span>
@@ -96,23 +97,23 @@
 
             <div class="calculadora-navigation">
                 <div class="calculadora-nav-left">
-                    <a href="home.html" class="calculadora-btn secondary">⬅️ Voltar para Início</a>
-                    <button onclick="limparTudo()" class="calculadora-btn secondary">🗑️ Limpar Tudo</button>
+                    <a href="home.html" class="calculadora-btn secondary">&larr; Voltar para Início</a>
+                    <button id="btnLimpar" class="calculadora-btn secondary">Limpar Tudo</button>
                 </div>
                 <div class="calculadora-nav-right">
-                    <button onclick="salvarProgresso()" class="calculadora-btn secondary">💾 Salvar Progresso</button>
-                    <button onclick="calcularResultados()" class="calculadora-btn primary" id="btnCalcular" disabled>🧮 Calcular Resultados</button>
+                    <button id="btnSalvar" class="calculadora-btn secondary">Salvar Progresso</button>
+                    <button id="btnCalcular" class="calculadora-btn primary" disabled>Calcular Resultados</button>
                 </div>
             </div>
         </div>
 
         <!-- Status do Progresso -->
         <div class="calculadora-card" id="progressStatus" style="display: none;">
-            <h3 class="calculadora-section-title">📈 Progresso da Avaliação</h3>
-            <div id="progressBar" style="background: var(--sigma-gray-200); height: 20px; border-radius: 10px; overflow: hidden; margin: var(--spacing-md) 0;">
-                <div id="progressFill" style="background: var(--sigma-success); height: 100%; width: 0%; transition: width 0.3s ease; border-radius: inherit;"></div>
+            <h3 class="calculadora-section-title">Progresso da Avaliação</h3>
+            <div class="progress-bar-track" id="progressBar">
+                <div class="progress-bar-fill" id="progressFill"></div>
             </div>
-            <p id="progressText" style="margin: 0; font-size: var(--font-size-sm); color: var(--sigma-gray-700);"></p>
+            <p id="progressText" class="section-intro"></p>
         </div>
         
         </div> <!-- Fecha pli-content-container -->
@@ -427,13 +428,13 @@
             localStorage.setItem('pli_scores', JSON.stringify(scores));
             localStorage.setItem('pli_justificativas', JSON.stringify(justificativas));
             
-            var btn = event.target;
-            var originalText = btn.innerHTML;
-            btn.innerHTML = '✅ Salvo!';
+            var btn = document.getElementById('btnSalvar');
+            var originalText = btn.textContent;
+            btn.textContent = 'Salvo!';
             btn.style.background = 'var(--sigma-success)';
             
             setTimeout(function() {
-                btn.innerHTML = originalText;
+                btn.textContent = originalText;
                 btn.style.background = '';
             }, 2000);
         }
@@ -460,6 +461,10 @@
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
             carregarDados();
+
+            document.getElementById('btnLimpar').addEventListener('click', limparTudo);
+            document.getElementById('btnSalvar').addEventListener('click', salvarProgresso);
+            document.getElementById('btnCalcular').addEventListener('click', calcularResultados);
         });
 
         // Verificar se há dados na URL (vindo da home)

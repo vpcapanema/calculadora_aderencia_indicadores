@@ -15,6 +15,7 @@
     <!-- CSS da aplicação -->
     <link rel="stylesheet" href="./styles/global.css">
     <link rel="stylesheet" href="./styles/calculadora-aderencia.css">
+    <link rel="stylesheet" href="./styles/home.css">
 </head>
 <body>
     <!-- Container Principal Padronizado -->
@@ -25,31 +26,31 @@
             <div class="pli-card">
                 <div class="pli-page-header">
                     <div>
-                        <h1 class="pli-page-title">📊 Resultados da Avaliação</h1>
+                        <h1 class="pli-page-title">Resultados da Avaliação</h1>
                         <p class="pli-page-subtitle">Sistema PLI SIGMA - Aderência Metodológica</p>
                     </div>
                     <div class="pli-page-nav">
-                        <a href="home.html" style="color: var(--sigma-info); text-decoration: none;">🏠 Início</a>
-                        <span style="margin: 0 var(--spacing-sm); color: var(--sigma-gray-400);">|</span>
-                        <a href="atribuicao-niveis.html" style="color: var(--sigma-info); text-decoration: none;">⬅️ Voltar</a>
+                        <a href="home.html">Início</a>
+                        <span class="nav-separator">|</span>
+                        <a href="atribuicao-niveis.html">&larr; Voltar</a>
                     </div>
                 </div>
 
                 <!-- Resumo Geral -->
                 <div class="pli-section" id="resumoGeral">
-                    <h3 style="color: var(--sigma-primary); font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-lg);">📈 Resumo Geral da Avaliação</h3>
+                    <h3 class="section-heading">Resumo Geral da Avaliação</h3>
                     <div class="pli-grid cols-3">
-                        <div style="text-align: center; padding: var(--spacing-lg); background: var(--sigma-accent); border-radius: var(--border-radius-md);">
-                            <div style="font-size: var(--font-size-2xl); font-weight: 900; color: var(--sigma-primary);" id="indiceGeralValue">--</div>
-                            <div style="font-size: var(--font-size-sm); color: var(--sigma-gray-600); margin-top: var(--spacing-xs);">Índice Geral de Aderência</div>
+                        <div class="summary-stat">
+                            <div class="stat-value" id="indiceGeralValue">--</div>
+                            <div class="stat-label">Índice Geral de Aderência</div>
                         </div>
-                        <div style="text-align: center; padding: var(--spacing-lg); background: var(--sigma-accent); border-radius: var(--border-radius-md);">
-                            <div style="font-size: var(--font-size-lg); font-weight: 700;" id="classificacaoGeralValue">--</div>
-                            <div style="font-size: var(--font-size-sm); color: var(--sigma-gray-600); margin-top: var(--spacing-xs);">Classificação Predominante</div>
+                        <div class="summary-stat">
+                            <div class="stat-value" id="classificacaoGeralValue">--</div>
+                            <div class="stat-label">Classificação Predominante</div>
                         </div>
-                        <div style="text-align: center; padding: var(--spacing-lg); background: var(--sigma-accent); border-radius: var(--border-radius-md);">
-                            <div style="font-size: var(--font-size-xl); font-weight: 700; color: var(--sigma-success);" id="totalIndicadores">0</div>
-                            <div style="font-size: var(--font-size-sm); color: var(--sigma-gray-600); margin-top: var(--spacing-xs);">Indicadores Avaliados</div>
+                        <div class="summary-stat">
+                            <div class="stat-value" id="totalIndicadores">0</div>
+                            <div class="stat-label">Indicadores Avaliados</div>
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
 
         <!-- Resultados Detalhados -->
         <div class="calculadora-card wide">
-            <h2 class="calculadora-subtitle">📋 Resultados Detalhados por Indicador</h2>
+            <h2 class="calculadora-subtitle">Resultados Detalhados por Indicador</h2>
             
             <div class="calculadora-table-wrapper">
                 <table class="calculadora-table" id="tabelaResultados">
@@ -80,52 +81,52 @@
 
         <!-- Análise por Critério -->
         <div class="calculadora-card wide">
-            <h2 class="calculadora-subtitle">🎯 Análise por Critério Metodológico</h2>
+            <h2 class="calculadora-subtitle">Análise por Critério Metodológico</h2>
             
-            <div id="analiseCriterios" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
+            <div id="analiseCriterios" class="analysis-criteria-grid">
                 <!-- Cards de critérios serão inseridos aqui -->
             </div>
         </div>
 
         <!-- Interpretação dos Resultados -->
         <div class="calculadora-card">
-            <h2 class="calculadora-subtitle">💡 Interpretação dos Resultados</h2>
+            <h2 class="calculadora-subtitle">Interpretação dos Resultados</h2>
             
-            <div style="display: grid; gap: var(--spacing-lg);">
-                <div style="background: var(--sigma-verde-claro); padding: var(--spacing-lg); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-success);">
-                    <h4 style="color: var(--sigma-success); margin: 0 0 var(--spacing-sm) 0;">🟢 Direto (IA ≥ 4,0)</h4>
-                    <p style="margin: 0; color: var(--sigma-gray-700);">Indicadores com alta aderência metodológica. Podem ser utilizados diretamente para representar o fenômeno de interesse.</p>
+            <div class="interpretation-grid">
+                <div class="interpretation-card direto">
+                    <h4>Direto (IA &ge; 4,0)</h4>
+                    <p>Indicadores com alta aderência metodológica. Podem ser utilizados diretamente para representar o fenômeno de interesse.</p>
                 </div>
                 
-                <div style="background: var(--sigma-accent); padding: var(--spacing-lg); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-info);">
-                    <h4 style="color: var(--sigma-info); margin: 0 0 var(--spacing-sm) 0;">🔵 Proxy Forte (3,0 ≤ IA < 4,0)</h4>
-                    <p style="margin: 0; color: var(--sigma-gray-700);">Indicadores com boa aderência. Podem ser utilizados como proxies confiáveis com pequenos ajustes metodológicos.</p>
+                <div class="interpretation-card proxy-forte">
+                    <h4>Proxy Forte (3,0 &le; IA &lt; 4,0)</h4>
+                    <p>Indicadores com boa aderência. Podem ser utilizados como proxies confiáveis com pequenos ajustes metodológicos.</p>
                 </div>
                 
-                <div style="background: #fff4e0; padding: var(--spacing-lg); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-warning);">
-                    <h4 style="color: var(--sigma-warning); margin: 0 0 var(--spacing-sm) 0;">🟡 Proxy Moderado (2,0 ≤ IA < 3,0)</h4>
-                    <p style="margin: 0; color: var(--sigma-gray-700);">Indicadores com aderência moderada. Requerem cuidados especiais na interpretação e uso limitado.</p>
+                <div class="interpretation-card proxy-moderado">
+                    <h4>Proxy Moderado (2,0 &le; IA &lt; 3,0)</h4>
+                    <p>Indicadores com aderência moderada. Requerem cuidados especiais na interpretação e uso limitado.</p>
                 </div>
                 
-                <div style="background: #fde8e6; padding: var(--spacing-lg); border-radius: var(--border-radius-md); border-left: 4px solid var(--sigma-error);">
-                    <h4 style="color: var(--sigma-error); margin: 0 0 var(--spacing-sm) 0;">🔴 Incerto/Espúrio (IA < 2,0)</h4>
-                    <p style="margin: 0; color: var(--sigma-gray-700);">Indicadores com baixa aderência. Não recomendados para uso direto, necessitam revisão metodológica profunda.</p>
+                <div class="interpretation-card incerto">
+                    <h4>Incerto/Espúrio (IA &lt; 2,0)</h4>
+                    <p>Indicadores com baixa aderência. Não recomendados para uso direto, necessitam revisão metodológica profunda.</p>
                 </div>
             </div>
         </div>
 
         <!-- Ações Finais -->
         <div class="calculadora-card">
-            <h2 class="calculadora-subtitle">⚡ Próximos Passos</h2>
+            <h2 class="calculadora-subtitle">Próximos Passos</h2>
             
             <div class="calculadora-navigation">
                 <div class="calculadora-nav-left">
-                    <a href="home.html" class="calculadora-btn secondary">🏠 Nova Avaliação</a>
-                    <a href="atribuicao-niveis.html" class="calculadora-btn secondary">⬅️ Revisar Critérios</a>
+                    <a href="home.html" class="calculadora-btn secondary">Nova Avaliação</a>
+                    <a href="atribuicao-niveis.html" class="calculadora-btn secondary">&larr; Revisar Critérios</a>
                 </div>
                 <div class="calculadora-nav-right">
-                    <button onclick="exportarResultados()" class="calculadora-btn primary">📄 Exportar Relatório</button>
-                    <button onclick="window.print()" class="calculadora-btn success">🖨️ Imprimir</button>
+                    <button id="btnExportar" class="calculadora-btn primary">Exportar Relatório</button>
+                    <button id="btnImprimir" class="calculadora-btn success">Imprimir</button>
                 </div>
             </div>
         </div>
@@ -248,8 +249,8 @@
 
                 if (indicadores.length === 0) {
                     document.querySelector('#tabelaResultados tbody').innerHTML =
-                        '<tr><td colspan="5" style="text-align: center; color: var(--sigma-warning); padding: var(--spacing-xl);">' +
-                        '⚠️ Nenhum indicador encontrado. <a href="home.html" style="color: var(--sigma-primary);">Voltar ao início</a>' +
+                        '<tr><td colspan="5" class="calculadora-empty-state">' +
+                        'Nenhum indicador encontrado. <a href="home.html">Voltar ao início</a>' +
                         '</td></tr>';
                     return;
                 }
@@ -299,28 +300,28 @@
                 tbody.innerHTML = resultados.map(function(r) {
                     var sensBadge = '';
                     if (r.sensibilidade.mudaCategoria) {
-                        sensBadge = '<div style="margin-top:4px;padding:3px 6px;background:#fff4e0;border-radius:4px;font-size:11px;color:var(--sigma-warning);">' +
-                            '⚠️ Sensível — faixa: ' + r.sensibilidade.iaMin.toFixed(2) + '–' + r.sensibilidade.iaMax.toFixed(2) +
-                            ' (' + r.sensibilidade.classeMin + ' → ' + r.sensibilidade.classeMax + ')' +
+                        sensBadge = '<div class="calculadora-badge-small sensivel">' +
+                            'Sens\u00edvel \u2014 faixa: ' + r.sensibilidade.iaMin.toFixed(2) + '\u2013' + r.sensibilidade.iaMax.toFixed(2) +
+                            ' (' + r.sensibilidade.classeMin + ' \u2192 ' + r.sensibilidade.classeMax + ')' +
                             '</div>';
                     } else {
-                        sensBadge = '<div style="margin-top:4px;font-size:11px;color:var(--sigma-success);">' +
-                            '✅ Estável — faixa: ' + r.sensibilidade.iaMin.toFixed(2) + '–' + r.sensibilidade.iaMax.toFixed(2) +
+                        sensBadge = '<div class="calculadora-badge-small estavel">' +
+                            'Est\u00e1vel \u2014 faixa: ' + r.sensibilidade.iaMin.toFixed(2) + '\u2013' + r.sensibilidade.iaMax.toFixed(2) +
                             '</div>';
                     }
 
                     var penalizacaoBadge = '';
                     if (r.penalizacoes.length > 0) {
-                        penalizacaoBadge = '<div style="margin-top:4px;padding:3px 6px;background:#fde8e6;border-radius:4px;font-size:11px;color:var(--sigma-error);">' +
-                            '⛔ Limiar eliminatório: ' + r.penalizacoes.join(', ') +
+                        penalizacaoBadge = '<div class="calculadora-eliminatorio-warning">' +
+                            'Limiar eliminat\u00f3rio: ' + r.penalizacoes.join(', ') +
                             '</div>';
                     }
 
                     return '<tr>' +
                         '<td><strong>' + r.indicador + '</strong>' + penalizacaoBadge + '</td>' +
-                        '<td style="text-align: center; font-weight: 700; color: var(--sigma-primary);">' + r.ia.toFixed(2) + '</td>' +
+                        '<td class="text-center text-bold text-primary">' + r.ia.toFixed(2) + '</td>' +
                         '<td><span class="calculadora-badge ' + getBadgeClass(r.classificacao) + '">' + r.classificacao + '</span></td>' +
-                        '<td style="text-align: center;">' + r.criteriosPreenchidos + '/7</td>' +
+                        '<td class="text-center">' + r.criteriosPreenchidos + '/7</td>' +
                         '<td>' + sensBadge + '</td>' +
                         '</tr>';
                 }).join('');
@@ -331,12 +332,12 @@
                     var analise = analisesCriterios[i];
                     var media = analise.count > 0 ? (analise.soma / analise.count).toFixed(2) : 'N/A';
                     
-                    return '<div style="background: var(--sigma-branco); border: 1px solid var(--sigma-gray-200); border-radius: var(--border-radius-md); padding: var(--spacing-lg); border-left: 4px solid ' + criterio.cor + ';">' +
-                        '<h4 style="margin: 0 0 var(--spacing-sm) 0; color: ' + criterio.cor + ';">' + criterio.nome + '</h4>' +
-                        '<p style="margin: 0 0 var(--spacing-md) 0; font-size: var(--font-size-sm); color: var(--sigma-gray-600);">' + criterio.explicacao + '</p>' +
-                        '<div style="display: flex; justify-content: space-between; align-items: center;">' +
-                            '<span style="font-size: var(--font-size-sm); color: var(--sigma-gray-700);">Peso: ' + criterio.peso + '%</span>' +
-                            '<span style="font-size: var(--font-size-lg); font-weight: 700; color: ' + criterio.cor + ';">Média: ' + media + '</span>' +
+                    return '<div class="criterion-analysis-card" style="border-left-color:' + criterio.cor + ';">' +
+                        '<h4 class="criterion-analysis-title" style="color:' + criterio.cor + ';">' + criterio.nome + '</h4>' +
+                        '<p class="criterion-analysis-desc">' + criterio.explicacao + '</p>' +
+                        '<div class="criterion-analysis-footer">' +
+                            '<span class="criterion-analysis-peso">Peso: ' + criterio.peso + '%</span>' +
+                            '<span class="criterion-analysis-media" style="color:' + criterio.cor + ';">M\u00e9dia: ' + media + '</span>' +
                         '</div>' +
                     '</div>';
                 }).join('');
@@ -344,8 +345,8 @@
             } catch (error) {
                 console.error('Erro ao carregar resultados:', error);
                 document.querySelector('#tabelaResultados tbody').innerHTML =
-                    '<tr><td colspan="5" style="text-align: center; color: var(--sigma-error); padding: var(--spacing-xl);">' +
-                    '❌ Erro ao carregar dados. <a href="home.html" style="color: var(--sigma-primary);">Reiniciar processo</a>' +
+                    '<tr><td colspan="5" class="calculadora-empty-state calculadora-error-state">' +
+                    'Erro ao carregar dados. <a href="home.html">Reiniciar processo</a>' +
                     '</td></tr>';
             }
         }
@@ -466,7 +467,7 @@
                 }
             } catch (error) {
                 console.error('Erro ao exportar:', error);
-                alert('❌ Erro ao exportar relatório.');
+                alert('Erro ao exportar relat\u00f3rio.');
             }
         }
 
@@ -489,6 +490,15 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             carregarResultados();
+
+            var btnExportar = document.getElementById('btnExportar');
+            if (btnExportar) {
+                btnExportar.addEventListener('click', exportarResultados);
+            }
+            var btnImprimir = document.getElementById('btnImprimir');
+            if (btnImprimir) {
+                btnImprimir.addEventListener('click', function() { window.print(); });
+            }
         });
     </script>
 </body>

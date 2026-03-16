@@ -1,0 +1,453 @@
+/* ============================================
+   HOME PAGE — estilos específicos
+   Calculadora de Aderência PLI SIGMA
+   ============================================ */
+
+/* Hero Section */
+.hero-section {
+    background: var(--pli-gradient-main);
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl) var(--spacing-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 900px;
+    z-index: 2;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 32, 62, 0.1);
+    z-index: 1;
+}
+
+/* Welcome Card */
+.welcome-card {
+    background: var(--sigma-branco);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-2xl);
+    margin: var(--spacing-xl) auto;
+    max-width: 1400px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--sigma-gray-200);
+}
+
+/* Methodology text */
+.methodology-text {
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--sigma-gray-700);
+    text-align: justify;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Step Cards Grid */
+.step-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+}
+
+.step-card {
+    background: var(--sigma-branco);
+    border: 2px solid var(--sigma-gray-200);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step-card:hover {
+    border-color: var(--sigma-info);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.step-number {
+    background: var(--sigma-primary);
+    color: var(--sigma-branco);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    margin: 0 auto var(--spacing-md);
+}
+
+.step-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--sigma-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.step-description {
+    font-size: var(--font-size-sm);
+    color: var(--sigma-gray-600);
+    line-height: 1.5;
+    text-align: justify;
+}
+
+/* Input Section */
+.input-section {
+    background: var(--sigma-gray-50);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-xl) 0;
+}
+
+/* Ficha Table */
+.ficha-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-lg) 0;
+    background: var(--sigma-branco);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.ficha-table th {
+    background: var(--sigma-primary);
+    color: var(--sigma-branco);
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.ficha-table td {
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--sigma-gray-200);
+}
+
+.ficha-table input {
+    width: 100%;
+    border: 1px solid var(--sigma-gray-300);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family);
+}
+
+.ficha-table input:focus {
+    outline: none;
+    border-color: var(--sigma-info);
+    box-shadow: 0 0 0 2px rgba(17, 101, 147, 0.1);
+}
+
+/* Add Row Button */
+.add-row-btn {
+    background: var(--sigma-success);
+    color: var(--sigma-branco);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    margin: var(--spacing-sm) 0;
+    transition: all 0.2s ease;
+}
+
+.add-row-btn:hover {
+    background: var(--sigma-verde-medio);
+    transform: translateY(-1px);
+}
+
+/* Upload Area */
+.upload-area {
+    border: 2px dashed var(--sigma-gray-300);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    margin: var(--spacing-lg) 0;
+    background: var(--sigma-branco);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: var(--sigma-info);
+    background: var(--sigma-accent-light);
+}
+
+.upload-area.dragover {
+    border-color: var(--sigma-success);
+    background: var(--sigma-verde-claro);
+}
+
+.upload-icon {
+    font-size: 2.5rem;
+    color: var(--sigma-gray-400);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Section Divider */
+.section-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--sigma-gray-300), transparent);
+    margin: var(--spacing-2xl) 0;
+}
+
+/* Template Download Area */
+.template-download {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    padding: var(--spacing-md);
+    background: var(--sigma-accent-light);
+    border-radius: var(--border-radius-md);
+}
+
+.template-download h4 {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--sigma-primary);
+}
+
+.template-download p {
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-size-sm);
+    color: var(--sigma-gray-600);
+}
+
+.template-download .btn-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Metadados Grid */
+.metadados-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+}
+
+.metadados-grid label {
+    display: block;
+    font-weight: 600;
+    color: var(--sigma-primary);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+}
+
+/* Remove Row Button */
+.btn-remove-row {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* ── Criterion Card (atribuicao-niveis) ──────────────── */
+.criterion-card {
+    background: var(--sigma-accent-light);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+}
+
+.criterion-card h4 {
+    margin: 0 0 var(--spacing-xs) 0;
+}
+
+.criterion-card p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--sigma-gray-700);
+    text-align: justify;
+}
+
+/* ── Interpretation Cards (resultados) ───────────────── */
+.interpretation-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.interpretation-card {
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+}
+
+.interpretation-card h4 {
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.interpretation-card p {
+    margin: 0;
+    color: var(--sigma-gray-700);
+    text-align: justify;
+}
+
+.interpretation-card.direto {
+    background: var(--sigma-verde-claro);
+    border-left: 4px solid var(--sigma-success);
+}
+
+.interpretation-card.direto h4 {
+    color: var(--sigma-success);
+}
+
+.interpretation-card.proxy-forte {
+    background: var(--sigma-accent-light);
+    border-left: 4px solid var(--sigma-info);
+}
+
+.interpretation-card.proxy-forte h4 {
+    color: var(--sigma-info);
+}
+
+.interpretation-card.proxy-moderado {
+    background: #fff4e0;
+    border-left: 4px solid var(--sigma-warning);
+}
+
+.interpretation-card.proxy-moderado h4 {
+    color: var(--sigma-warning);
+}
+
+.interpretation-card.incerto {
+    background: #fde8e6;
+    border-left: 4px solid var(--sigma-error);
+}
+
+.interpretation-card.incerto h4 {
+    color: var(--sigma-error);
+}
+
+/* ── Summary Stats Cards (resultados) ────────────────── */
+.summary-stat {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background: var(--sigma-accent-light);
+    border-radius: var(--border-radius-md);
+}
+
+.summary-stat .stat-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 900;
+    color: var(--sigma-primary);
+}
+
+.summary-stat .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--sigma-gray-600);
+    margin-top: var(--spacing-xs);
+}
+
+/* ── Breadcrumb / Page Nav ───────────────────────────── */
+.pli-page-nav a {
+    color: var(--sigma-info);
+    text-decoration: none;
+}
+
+.pli-page-nav a:hover {
+    text-decoration: underline;
+}
+
+.pli-page-nav .nav-separator {
+    margin: 0 var(--spacing-sm);
+    color: var(--sigma-gray-400);
+}
+
+.pli-page-nav .nav-current {
+    color: var(--sigma-gray-800);
+    font-weight: 600;
+}
+
+/* ── Section Heading ─────────────────────────────────── */
+.section-heading {
+    color: var(--sigma-primary);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-heading-md {
+    color: var(--sigma-primary);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.section-intro {
+    color: var(--sigma-gray-600);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+}
+
+/* ── Progress Bar ────────────────────────────────────── */
+.progress-bar-track {
+    background: var(--sigma-gray-200);
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: var(--spacing-md) 0;
+}
+
+.progress-bar-fill {
+    background: var(--sigma-success);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: inherit;
+}
+
+/* ── Analysis Criteria Grid (resultados) ─────────────── */
+.analysis-criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: auto;
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+    
+    .welcome-heading {
+        font-size: 2rem;
+    }
+    
+    .step-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcome-card {
+        padding: var(--spacing-lg);
+        margin: var(--spacing-md) var(--spacing-sm);
+    }
+    
+    .ficha-table {
+        font-size: var(--font-size-xs);
+    }
+    
+    .ficha-table th,
+    .ficha-table td {
+        padding: var(--spacing-xs);
+    }
+
+    .metadados-grid {
+        grid-template-columns: 1fr;
+    }
+}

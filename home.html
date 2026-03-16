@@ -19,234 +19,7 @@
     <link rel="stylesheet" href="./styles/global.css">
     <link rel="stylesheet" href="./styles/calculadora-aderencia.css">
     <link rel="stylesheet" href="./styles/WelcomeSection_PLI.css">
-    
-    <style>
-        /* Estilos específicos para a página inicial */
-        .hero-section {
-            background: var(--pli-gradient-main);
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: var(--spacing-2xl) var(--spacing-md);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-content {
-            text-align: center;
-            max-width: 900px;
-            z-index: 2;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(15, 32, 62, 0.1);
-            z-index: 1;
-        }
-        
-        .welcome-card {
-            background: var(--sigma-branco);
-            border-radius: var(--border-radius-xl);
-            padding: var(--spacing-2xl);
-            margin: var(--spacing-xl) auto;
-            max-width: 1000px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--sigma-gray-200);
-        }
-        
-        .methodology-text {
-            font-size: var(--font-size-base);
-            line-height: 1.7;
-            color: var(--sigma-gray-700);
-            text-align: justify;
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .step-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--spacing-lg);
-            margin: var(--spacing-xl) 0;
-        }
-        
-        .step-card {
-            background: var(--sigma-branco);
-            border: 2px solid var(--sigma-gray-200);
-            border-radius: var(--border-radius-lg);
-            padding: var(--spacing-lg);
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .step-card:hover {
-            border-color: var(--sigma-info);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .step-number {
-            background: var(--sigma-primary);
-            color: var(--sigma-branco);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: var(--font-size-lg);
-            margin: 0 auto var(--spacing-md);
-        }
-        
-        .step-title {
-            font-size: var(--font-size-base);
-            font-weight: 600;
-            color: var(--sigma-primary);
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        .step-description {
-            font-size: var(--font-size-sm);
-            color: var(--sigma-gray-600);
-            line-height: 1.5;
-        }
-        
-        .input-section {
-            background: var(--sigma-gray-50);
-            border-radius: var(--border-radius-lg);
-            padding: var(--spacing-xl);
-            margin: var(--spacing-xl) 0;
-        }
-        
-        .ficha-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: var(--spacing-lg) 0;
-            background: var(--sigma-branco);
-            border-radius: var(--border-radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .ficha-table th {
-            background: var(--sigma-primary);
-            color: var(--sigma-branco);
-            padding: var(--spacing-md);
-            text-align: left;
-            font-weight: 600;
-            font-size: var(--font-size-sm);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        
-        .ficha-table td {
-            padding: var(--spacing-sm);
-            border-bottom: 1px solid var(--sigma-gray-200);
-        }
-        
-        .ficha-table input {
-            width: 100%;
-            border: 1px solid var(--sigma-gray-300);
-            border-radius: var(--border-radius-sm);
-            padding: var(--spacing-sm);
-            font-size: var(--font-size-sm);
-            font-family: var(--font-family);
-        }
-        
-        .ficha-table input:focus {
-            outline: none;
-            border-color: var(--sigma-info);
-            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.1);
-        }
-        
-        .add-row-btn {
-            background: var(--sigma-success);
-            color: var(--sigma-branco);
-            border: none;
-            padding: var(--spacing-sm) var(--spacing-md);
-            border-radius: var(--border-radius-sm);
-            font-size: var(--font-size-sm);
-            cursor: pointer;
-            margin: var(--spacing-sm) 0;
-            transition: all 0.2s ease;
-        }
-        
-        .add-row-btn:hover {
-            background: var(--sigma-verde-medio);
-            transform: translateY(-1px);
-        }
-        
-        .upload-area {
-            border: 2px dashed var(--sigma-gray-300);
-            border-radius: var(--border-radius-lg);
-            padding: var(--spacing-xl);
-            text-align: center;
-            margin: var(--spacing-lg) 0;
-            background: var(--sigma-branco);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .upload-area:hover {
-            border-color: var(--sigma-info);
-            background: var(--sigma-accent);
-        }
-        
-        .upload-area.dragover {
-            border-color: var(--sigma-success);
-            background: var(--sigma-verde-claro);
-        }
-        
-        .upload-icon {
-            font-size: 3rem;
-            color: var(--sigma-gray-400);
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .section-divider {
-            border: none;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--sigma-gray-300), transparent);
-            margin: var(--spacing-2xl) 0;
-        }
-        
-        @media (max-width: 768px) {
-            .hero-section {
-                min-height: 50vh;
-                padding: var(--spacing-lg) var(--spacing-sm);
-            }
-            
-            .welcome-heading {
-                font-size: 2.5rem;
-            }
-            
-            .step-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .welcome-card {
-                padding: var(--spacing-lg);
-                margin: var(--spacing-md) var(--spacing-sm);
-            }
-            
-            .ficha-table {
-                font-size: var(--font-size-xs);
-            }
-            
-            .ficha-table th,
-            .ficha-table td {
-                padding: var(--spacing-xs);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./styles/home.css">
 </head>
 <body>
     <!-- Seção Hero -->
@@ -266,18 +39,18 @@
             <div class="pli-card">
                 <div class="pli-page-header">
                     <div>
-                        <h1 class="pli-page-title">📊 Calculadora de Aderência Metodológica</h1>
-                        <p class="pli-page-subtitle">Sistema PLI SIGMA - Avaliação de Indicadores</p>
+                        <h1 class="pli-page-title">Calculadora de Aderência Metodológica</h1>
+                        <p class="pli-page-subtitle">Sistema PLI SIGMA — Avaliação de Indicadores</p>
                     </div>
                     <div class="pli-page-nav">
-                        <a href="guia-template.html" target="_blank" style="color: var(--sigma-info); text-decoration: none;">📖 Guia de Uso</a>
+                        <a href="guia-template.html" target="_blank">Guia de Uso</a>
                     </div>
                 </div>
                 
                 <div class="pli-section">
-                    <h2 style="color: var(--sigma-primary); font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-md);">A Ferramenta:</h2>
+                    <h2 class="section-heading-md">A Ferramenta:</h2>
                     
-                    <p style="margin-bottom: var(--spacing-md); line-height: 1.6; color: var(--sigma-gray-700);">
+                    <p class="methodology-text">
                         Com intuito de promover consistência lógica, rastreabilidade e reprodutibilidade implementamos a Calculadora de Nível de Aderência indicador/objeto de estudo. O processo contempla desde a definição conceitual do fenômeno até a 
                         A partir do grau de associação do indicador ao objeto de estudo e considerando diferentes critérios. 
                         Cada indicador é avaliado segundo sete critérios analíticos que contribuem para aferir o grau de robustez 
@@ -285,10 +58,10 @@
                         mecanismo causal, validade empírica, especificidade, sensibilidade, mensurabilidade e custo-benefício.
                     </p>
                     
-                    <p style="margin: 0; line-height: 1.6; color: var(--sigma-gray-700);">
+                    <p class="methodology-text">
                         A classificação final se organiza em quatro níveis: <strong>Direto</strong> (IA ≥ 4,0), 
-                        <strong>Proxy Forte</strong> (3,0 ≤ IA < 4,0), <strong>Proxy Moderado</strong> (2,0 ≤ IA < 3,0) e 
-                        <strong>Incerto/Espúrio</strong> (IA < 2,0). Essa gradação assegura clareza sobre o grau de confiança 
+                        <strong>Proxy Forte</strong> (3,0 ≤ IA &lt; 4,0), <strong>Proxy Moderado</strong> (2,0 ≤ IA &lt; 3,0) e 
+                        <strong>Incerto/Espúrio</strong> (IA &lt; 2,0). Essa gradação assegura clareza sobre o grau de confiança 
                         que cada indicador oferece.
                     </p>
                 </div>
@@ -296,8 +69,8 @@
 
             <!-- Funcionalidades do Sistema -->
             <div class="pli-card">
-                <h2 style="color: var(--sigma-primary); font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-lg);">Funcionalidades do Sistema</h2>
-                <p style="color: var(--sigma-gray-600); margin-bottom: var(--spacing-lg);">Passo a passo para gerar a classificação:</p>
+                <h2 class="section-heading">Funcionalidades do Sistema</h2>
+                <p class="section-intro">Passo a passo para gerar a classificação:</p>
             
             <div class="step-cards">
                 <div class="step-card">
@@ -343,23 +116,19 @@
         <!-- Metadados da Avaliação -->
         <div class="pli-card">
             <h2 class="calculadora-title">Identificação da Avaliação</h2>
-            <p style="color: var(--sigma-gray-600); margin-bottom: var(--spacing-lg); font-size: var(--font-size-sm);">
+            <p class="section-intro">
                 Estes campos serão incluídos no relatório auditável exportado.
             </p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg);">
+            <div class="metadados-grid">
                 <div>
-                    <label style="display: block; font-weight: 600; color: var(--sigma-primary); margin-bottom: var(--spacing-xs); font-size: var(--font-size-sm);">
-                        👤 Nome do Avaliador
-                    </label>
+                    <label>Nome do Avaliador</label>
                     <input type="text" id="avaliadorInput" placeholder="Nome completo do avaliador"
-                        style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--sigma-gray-300); border-radius: var(--border-radius-sm); font-size: var(--font-size-sm); font-family: var(--font-family);">
+                        class="calculadora-text-input">
                 </div>
                 <div>
-                    <label style="display: block; font-weight: 600; color: var(--sigma-primary); margin-bottom: var(--spacing-xs); font-size: var(--font-size-sm);">
-                        🎯 Objeto de Estudo
-                    </label>
+                    <label>Objeto de Estudo</label>
                     <input type="text" id="objetoEstudoInput" placeholder="Ex.: Infraestrutura logística do Estado de SP"
-                        style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--sigma-gray-300); border-radius: var(--border-radius-sm); font-size: var(--font-size-sm); font-family: var(--font-family);">
+                        class="calculadora-text-input">
                 </div>
             </div>
         </div>
@@ -371,26 +140,28 @@
             <div class="input-section">
                 <h3 class="calculadora-subtitle">Opção 1: Upload de Arquivo CSV</h3>
                 
-                <div class="template-download" style="margin-bottom: 1.5rem; text-align: center; padding: 1rem; background: var(--sigma-accent); border-radius: var(--border-radius-md);">
-                    <h4 style="margin: 0 0 0.5rem 0; color: var(--sigma-primary);">📥 Download do Template</h4>
-                    <p style="margin: 0 0 1rem 0; font-size: var(--font-size-sm); color: var(--sigma-gray-600);">
+                <div class="template-download">
+                    <h4>Download do Template</h4>
+                    <p>
                         Baixe o modelo padrão, preencha com seus indicadores e faça o upload
                     </p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
-                        <button onclick="downloadTemplate()" class="calculadora-btn primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
-                            📋 Baixar Template CSV
+                    <div class="btn-group">
+                        <button id="btnDownloadTemplate" class="calculadora-btn primary">
+                            Baixar Template CSV
                         </button>
-                        <a href="guia-template.html" target="_blank" class="calculadora-btn secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                            📖 Ver Instruções
+                        <a href="guia-template.html" target="_blank" class="calculadora-btn secondary">
+                            Ver Instruções
                         </a>
                     </div>
                 </div>
                 
                 <div class="upload-area" id="uploadArea">
-                    <div class="upload-icon">📄</div>
+                    <div class="upload-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
                     <h4>Arraste um arquivo CSV ou clique para selecionar</h4>
                     <p>Formato esperado: indicador, descrição, área, unidade_medida, fonte</p>
-                    <input type="file" id="csvFile" accept=".csv" style="display: none;">
+                    <input type="file" id="csvFile" accept=".csv" hidden>
                 </div>
                 <div id="uploadStatus" class="calculadora-success" style="display: none;"></div>
             </div>
@@ -399,7 +170,7 @@
                 <h3 class="calculadora-subtitle">Opção 2: Preenchimento Manual</h3>
                 <p class="calculadora-section-title">Ficha Mínima de Indicadores</p>
                 
-                <div style="overflow-x: auto;">
+                <div class="calculadora-table-wrapper">
                     <table class="ficha-table" id="indicadoresTable">
                         <thead>
                             <tr>
@@ -419,21 +190,21 @@
                                 <td><input type="text" placeholder="Unidade (%, nº, R$)"></td>
                                 <td><input type="text" placeholder="Fonte dos dados"></td>
                                 <td>
-                                    <button onclick="removeRow(this)" class="calculadora-btn secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">❌</button>
+                                    <button class="calculadora-btn secondary btn-remove-row" data-action="remove-row">&times;</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 
-                <button onclick="addRow()" class="add-row-btn">➕ Adicionar Linha</button>
+                <button id="btnAddRow" class="add-row-btn">+ Adicionar Linha</button>
                 
-                <div class="calculadora-navigation" style="margin-top: var(--spacing-xl);">
+                <div class="calculadora-navigation">
                     <div class="calculadora-nav-left">
-                        <button onclick="clearTable()" class="calculadora-btn secondary">🗑️ Limpar Tabela</button>
+                        <button id="btnClearTable" class="calculadora-btn secondary">Limpar Tabela</button>
                     </div>
                     <div class="calculadora-nav-right">
-                        <button onclick="validateAndProceed()" class="calculadora-btn primary">✅ Confirmar e Prosseguir</button>
+                        <button id="btnConfirm" class="calculadora-btn primary">Confirmar e Prosseguir</button>
                     </div>
                 </div>
             </div> <!-- Fecha último pli-card -->
@@ -444,23 +215,20 @@
     <script>
         // Funcionalidades da tabela
         function addRow() {
-            const tbody = document.getElementById('tableBody');
-            const newRow = tbody.insertRow();
-            newRow.innerHTML = `
-                <td><input type="text" placeholder="Nome do indicador"></td>
-                <td><input type="text" placeholder="Descrição detalhada"></td>
-                <td><input type="text" placeholder="Área de aplicação"></td>
-                <td><input type="text" placeholder="Unidade (%, nº, R$)"></td>
-                <td><input type="text" placeholder="Fonte dos dados"></td>
-                <td>
-                    <button onclick="removeRow(this)" class="calculadora-btn secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">❌</button>
-                </td>
-            `;
+            var tbody = document.getElementById('tableBody');
+            var newRow = tbody.insertRow();
+            newRow.innerHTML =
+                '<td><input type="text" placeholder="Nome do indicador"></td>' +
+                '<td><input type="text" placeholder="Descrição detalhada"></td>' +
+                '<td><input type="text" placeholder="Área de aplicação"></td>' +
+                '<td><input type="text" placeholder="Unidade (%, nº, R$)"></td>' +
+                '<td><input type="text" placeholder="Fonte dos dados"></td>' +
+                '<td><button class="calculadora-btn secondary btn-remove-row" data-action="remove-row">&times;</button></td>';
         }
 
         function removeRow(button) {
-            const row = button.closest('tr');
-            const tbody = document.getElementById('tableBody');
+            var row = button.closest('tr');
+            var tbody = document.getElementById('tableBody');
             if (tbody.children.length > 1) {
                 row.remove();
             } else {
@@ -470,30 +238,27 @@
 
         function clearTable() {
             if (confirm('Tem certeza que deseja limpar toda a tabela?')) {
-                const tbody = document.getElementById('tableBody');
-                tbody.innerHTML = `
-                    <tr>
-                        <td><input type="text" placeholder="Nome do indicador"></td>
-                        <td><input type="text" placeholder="Descrição detalhada"></td>
-                        <td><input type="text" placeholder="Área de aplicação"></td>
-                        <td><input type="text" placeholder="Unidade (%, nº, R$)"></td>
-                        <td><input type="text" placeholder="Fonte dos dados"></td>
-                        <td>
-                            <button onclick="removeRow(this)" class="calculadora-btn secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">❌</button>
-                        </td>
-                    </tr>
-                `;
+                var tbody = document.getElementById('tableBody');
+                tbody.innerHTML =
+                    '<tr>' +
+                    '<td><input type="text" placeholder="Nome do indicador"></td>' +
+                    '<td><input type="text" placeholder="Descrição detalhada"></td>' +
+                    '<td><input type="text" placeholder="Área de aplicação"></td>' +
+                    '<td><input type="text" placeholder="Unidade (%, nº, R$)"></td>' +
+                    '<td><input type="text" placeholder="Fonte dos dados"></td>' +
+                    '<td><button class="calculadora-btn secondary btn-remove-row" data-action="remove-row">&times;</button></td>' +
+                    '</tr>';
             }
         }
 
         function validateAndProceed() {
-            const rows = document.querySelectorAll('#tableBody tr');
-            let validRows = 0;
+            var rows = document.querySelectorAll('#tableBody tr');
+            var validRows = 0;
             
-            rows.forEach(row => {
-                const inputs = row.querySelectorAll('input[type="text"]');
-                let filledInputs = 0;
-                inputs.forEach(input => {
+            rows.forEach(function(row) {
+                var inputs = row.querySelectorAll('input[type="text"]');
+                var filledInputs = 0;
+                inputs.forEach(function(input) {
                     if (input.value.trim() !== '') filledInputs++;
                 });
                 if (filledInputs >= 2) validRows++;
@@ -587,7 +352,7 @@
                     populateTableFromCSV(lines);
                     
                     uploadStatus.style.display = 'block';
-                    uploadStatus.innerHTML = `✅ Arquivo "${file.name}" carregado com sucesso! ${lines.length - 1} indicador(es) importado(s).`;
+                    uploadStatus.textContent = 'Arquivo "' + file.name + '" carregado com sucesso! ' + (lines.length - 1) + ' indicador(es) importado(s).';
                     
                 } catch (error) {
                     alert('Erro ao processar arquivo: ' + error.message);
@@ -597,60 +362,52 @@
         }
 
         function populateTableFromCSV(lines) {
-            const tbody = document.getElementById('tableBody');
+            var tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
 
-            // Ignorar cabeçalho e processar dados
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+            for (var i = 1; i < lines.length; i++) {
+                var values = lines[i].split(',').map(function(v) { return v.trim().replace(/"/g, ''); });
                 
-                if (values.length >= 2 && values[0]) { // Pelo menos indicador e descrição
-                    const row = tbody.insertRow();
-                    row.innerHTML = `
-                        <td><input type="text" value="${values[0] || ''}" placeholder="Nome do indicador"></td>
-                        <td><input type="text" value="${values[1] || ''}" placeholder="Descrição detalhada"></td>
-                        <td><input type="text" value="${values[2] || ''}" placeholder="Área de aplicação"></td>
-                        <td><input type="text" value="${values[3] || ''}" placeholder="Unidade (%, nº, R$)"></td>
-                        <td><input type="text" value="${values[4] || ''}" placeholder="Fonte dos dados"></td>
-                        <td>
-                            <button onclick="removeRow(this)" class="calculadora-btn secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">❌</button>
-                        </td>
-                    `;
+                if (values.length >= 2 && values[0]) {
+                    var row = tbody.insertRow();
+                    row.innerHTML =
+                        '<td><input type="text" value="' + (values[0] || '') + '" placeholder="Nome do indicador"></td>' +
+                        '<td><input type="text" value="' + (values[1] || '') + '" placeholder="Descrição detalhada"></td>' +
+                        '<td><input type="text" value="' + (values[2] || '') + '" placeholder="Área de aplicação"></td>' +
+                        '<td><input type="text" value="' + (values[3] || '') + '" placeholder="Unidade (%, nº, R$)"></td>' +
+                        '<td><input type="text" value="' + (values[4] || '') + '" placeholder="Fonte dos dados"></td>' +
+                        '<td><button class="calculadora-btn secondary btn-remove-row" data-action="remove-row">&times;</button></td>';
                 }
             }
 
-            // Garantir pelo menos uma linha vazia
             if (tbody.children.length === 0) {
                 addRow();
             }
         }
 
-        // Função para download do template CSV
         function downloadTemplate() {
-            // Conteúdo do template CSV com instruções
-            const csvContent = `# TEMPLATE FICHA MÍNIMA DE INDICADORES - PLI SIGMA
-# Instruções de preenchimento:
-# 1. Preencha uma linha para cada indicador
-# 2. Use aspas duplas para textos que contenham vírgulas
-# 3. Mantenha o cabeçalho (primeira linha) sem alterações
-# 4. Remova estas linhas de comentário antes do upload
-# 
-# Exemplo de preenchimento:
-# "Taxa de Crescimento Populacional","Mede o crescimento anual da população em percentual","Demografia","%","IBGE"
-#
-indicador,descricao,area,unidade_medida,fonte
-"[Nome do Indicador 1]","[Descrição detalhada do que o indicador mede]","[Área: Demografia, Transporte, Economia, etc.]","[Unidade: %, nº, R$, ton/ano, etc.]","[Fonte: IBGE, ANTT, ANTAQ, etc.]"
-"[Nome do Indicador 2]","","","",""
-"[Nome do Indicador 3]","","","",""
-"","","","",""
-"","","","","" `;
+            var csvContent = '# TEMPLATE FICHA MÍNIMA DE INDICADORES - PLI SIGMA\n' +
+                '# Instruções de preenchimento:\n' +
+                '# 1. Preencha uma linha para cada indicador\n' +
+                '# 2. Use aspas duplas para textos que contenham vírgulas\n' +
+                '# 3. Mantenha o cabeçalho (primeira linha) sem alterações\n' +
+                '# 4. Remova estas linhas de comentário antes do upload\n' +
+                '#\n' +
+                '# Exemplo de preenchimento:\n' +
+                '# "Taxa de Crescimento Populacional","Mede o crescimento anual da população em percentual","Demografia","%","IBGE"\n' +
+                '#\n' +
+                'indicador,descricao,area,unidade_medida,fonte\n' +
+                '"[Nome do Indicador 1]","[Descrição detalhada do que o indicador mede]","[Área: Demografia, Transporte, Economia, etc.]","[Unidade: %, nº, R$, ton/ano, etc.]","[Fonte: IBGE, ANTT, ANTAQ, etc.]"\n' +
+                '"[Nome do Indicador 2]","","","",""\n' +
+                '"[Nome do Indicador 3]","","","",""\n' +
+                '"","","","",""\n' +
+                '"","","","","" ';
             
-            // Criar blob e URL para download
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
+            var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            var link = document.createElement('a');
             
             if (link.download !== undefined) {
-                const url = URL.createObjectURL(blob);
+                var url = URL.createObjectURL(blob);
                 link.setAttribute('href', url);
                 link.setAttribute('download', 'template-ficha-indicadores-PLI.csv');
                 link.style.visibility = 'hidden';
@@ -658,30 +415,36 @@ indicador,descricao,area,unidade_medida,fonte
                 link.click();
                 document.body.removeChild(link);
                 
-                // Feedback visual
-                const button = event.target;
-                const originalText = button.innerHTML;
-                button.innerHTML = '✅ Template Baixado!';
+                var button = document.getElementById('btnDownloadTemplate');
+                var originalText = button.textContent;
+                button.textContent = 'Template Baixado!';
                 button.style.background = 'var(--sigma-success)';
                 
-                setTimeout(() => {
-                    button.innerHTML = originalText;
+                setTimeout(function() {
+                    button.textContent = originalText;
                     button.style.background = '';
                 }, 2000);
-                
-                console.log('📥 Template CSV baixado: template-ficha-indicadores-PLI.csv');
             }
         }
 
-        // Log de inicialização
-        console.log('🏠 Página inicial da Calculadora PLI carregada com sucesso!');
-        
-        // Carregar metadados salvos
+        // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
             var avaliadorSalvo = localStorage.getItem('pli_avaliador');
             var objetoSalvo = localStorage.getItem('pli_objeto_estudo');
             if (avaliadorSalvo) document.getElementById('avaliadorInput').value = avaliadorSalvo;
             if (objetoSalvo) document.getElementById('objetoEstudoInput').value = objetoSalvo;
+
+            // Event listeners
+            document.getElementById('btnAddRow').addEventListener('click', addRow);
+            document.getElementById('btnClearTable').addEventListener('click', clearTable);
+            document.getElementById('btnConfirm').addEventListener('click', validateAndProceed);
+            document.getElementById('btnDownloadTemplate').addEventListener('click', downloadTemplate);
+
+            // Delegação para botões de remover linha
+            document.getElementById('tableBody').addEventListener('click', function(e) {
+                var btn = e.target.closest('[data-action="remove-row"]');
+                if (btn) removeRow(btn);
+            });
         });
     </script>
 </body>
