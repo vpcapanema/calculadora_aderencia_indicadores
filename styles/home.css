@@ -421,7 +421,7 @@
 /* Responsive */
 @media (max-width: 768px) {
     .hero-section {
-        min-height: auto;
+        min-height: 0;
         padding: var(--spacing-lg) var(--spacing-sm);
     }
     

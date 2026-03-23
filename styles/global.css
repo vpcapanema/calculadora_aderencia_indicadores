@@ -201,16 +201,6 @@ body {
     background: var(--sigma-gray-500);
 }
 
-/* Scrollbar para Firefox - Propriedades Experimentais
- * scrollbar-width e scrollbar-color são APIs experimentais CSS
- * Suportadas apenas em Firefox e Chrome >= 121
- * Fallback: A scrollbar padrão será exibida em navegadores sem suporte
- */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--sigma-gray-400) var(--sigma-gray-100);
-}
-
 /* Última atualização: 2025-10-01 */
 
 /* ==============================

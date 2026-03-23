@@ -864,3 +864,42 @@
     font-size: var(--font-size-lg);
     font-weight: 700;
 }
+
+/* ============================================================
+   Criterion card color variants (atribuicao-niveis.html)
+   ============================================================ */
+.criterion-primary { border-left: 4px solid var(--sigma-primary); }
+.criterion-primary h4 { color: var(--sigma-primary); }
+.criterion-secondary { border-left: 4px solid var(--sigma-secondary); }
+.criterion-secondary h4 { color: var(--sigma-secondary); }
+.criterion-info { border-left: 4px solid var(--sigma-info); }
+.criterion-info h4 { color: var(--sigma-info); }
+.criterion-success { border-left: 4px solid var(--sigma-success); }
+.criterion-success h4 { color: var(--sigma-success); }
+.criterion-warning { border-left: 4px solid var(--sigma-warning); }
+.criterion-warning h4 { color: var(--sigma-warning); }
+.criterion-verde-medio { border-left: 4px solid var(--sigma-verde-medio); }
+.criterion-verde-medio h4 { color: var(--sigma-verde-medio); }
+.criterion-error { border-left: 4px solid var(--sigma-error); }
+.criterion-error h4 { color: var(--sigma-error); }
+
+/* Elements initially hidden, toggled by JavaScript */
+#progressStatus,
+#uploadStatus {
+    display: none;
+}
+
+/* Ficha table column min-widths (home.html) */
+.ficha-table th:nth-child(1) { min-width: 200px; }
+.ficha-table th:nth-child(2) { min-width: 250px; }
+.ficha-table th:nth-child(3) { min-width: 150px; }
+.ficha-table th:nth-child(4) { min-width: 150px; }
+.ficha-table th:nth-child(5) { min-width: 150px; }
+.ficha-table th:nth-child(6) { min-width: 80px; }
+
+/* Results table column widths (resultados.html) */
+#tabelaResultados th:nth-child(1) { width: 30%; }
+#tabelaResultados th:nth-child(2) { width: 10%; }
+#tabelaResultados th:nth-child(3) { width: 18%; }
+#tabelaResultados th:nth-child(4) { width: 12%; }
+#tabelaResultados th:nth-child(5) { width: 30%; }
